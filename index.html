@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Idle Garden</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Header -->
+    <header id="header">
+      <div id="currency">
+        <span>🌻 <span id="coins-display">0</span></span>
+        <span>💧 <span id="water-display">10</span>/10</span>
+      </div>
+      <div id="level-display">Lvl <span id="player-level">1</span></div>
+    </header>
+
+    <!-- Garden View -->
+    <main id="garden-container">
+      <div id="garden-grid"></div>
+      <div id="idle-particles"></div>
+    </main>
+
+    <!-- Bottom Nav -->
+    <nav id="bottom-nav">
+      <button class="nav-btn active" data-tab="garden">
+        <span class="nav-icon">🌿</span>
+        <span class="nav-label">Garden</span>
+      </button>
+      <button class="nav-btn" data-tab="shop">
+        <span class="nav-icon">🛒</span>
+        <span class="nav-label">Shop</span>
+      </button>
+      <button class="nav-btn" data-tab="inventory">
+        <span class="nav-icon">🎒</span>
+        <span class="nav-label">Bag</span>
+      </button>
+      <button class="nav-btn" data-tab="progress">
+        <span class="nav-icon">⭐</span>
+        <span class="nav-label">Progress</span>
+      </button>
+    </nav>
+
+    <!-- Shop Panel -->
+    <div id="shop-panel" class="panel hidden">
+      <div class="panel-header">
+        <h2>Garden Shop</h2>
+        <button class="close-btn" data-close="shop-panel">✕</button>
+      </div>
+      <div class="shop-tabs">
+        <button class="shop-tab active" data-category="plants">🌱 Plants</button>
+        <button class="shop-tab" data-category="trees">🌳 Trees</button>
+        <button class="shop-tab" data-category="decorations">🪨 Decor</button>
+        <button class="shop-tab" data-category="gnomes">🧙 Gnomes</button>
+        <button class="shop-tab" data-category="land">🏡 Land</button>
+      </div>
+      <div id="shop-items"></div>
+    </div>
+
+    <!-- Inventory Panel -->
+    <div id="inventory-panel" class="panel hidden">
+      <div class="panel-header">
+        <h2>Your Items</h2>
+        <button class="close-btn" data-close="inventory-panel">✕</button>
+      </div>
+      <p class="panel-hint">Tap an item, then tap a garden tile to place it.</p>
+      <div id="inventory-items"></div>
+    </div>
+
+    <!-- Progress Panel -->
+    <div id="progress-panel" class="panel hidden">
+      <div class="panel-header">
+        <h2>Progress</h2>
+        <button class="close-btn" data-close="progress-panel">✕</button>
+      </div>
+      <div id="progress-content"></div>
+    </div>
+
+    <!-- Tile Action Modal -->
+    <div id="tile-modal" class="modal hidden">
+      <div class="modal-content">
+        <div id="tile-modal-info"></div>
+        <div id="tile-modal-actions"></div>
+        <button class="modal-close" id="tile-modal-close">Close</button>
+      </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast"></div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>

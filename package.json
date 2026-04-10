@@ -1,0 +1,12 @@
+{
+  "name": "idle-gardening-game",
+  "version": "1.0.0",
+  "description": "A mobile idle gardening game",
+  "scripts": {
+    "start": "npx serve . -p 3000 --no-clipboard",
+    "dev": "npx serve . -p 3000 --no-clipboard"
+  },
+  "devDependencies": {
+    "serve": "^14.2.3"
+  }
+}
