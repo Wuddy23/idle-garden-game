@@ -14,32 +14,33 @@ const CATALOG = {
     { id: 'maple',      name: 'Maple Tree',  emoji: '🍁', cost: 100, reward: 15, growTime: 300, xp: 45, isTree: true },
     { id: 'cherry',     name: 'Cherry Tree', emoji: '🌸', cost: 150, reward: 25, growTime: 420, xp: 70, isTree: true },
     { id: 'cactus',     name: 'Cactus',      emoji: '🌵', cost: 80,  reward: 12, growTime: 240, xp: 35, isTree: true },
+    { id: 'bonsai',     name: 'Bonsai Tree', emoji: '🪴', cost: 200, reward: 35, growTime: 600, xp: 90, isTree: true,
+      customArt: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 70"><ellipse cx="30" cy="67" rx="11" ry="2" fill="rgba(0,0,0,0.12)"/><path d="M21 59 L19 67 L41 67 L39 59 Z" fill="#8b5e3c"/><rect x="18" y="54" width="24" height="7" rx="3" fill="#a0714f"/><line x1="24" y1="56" x2="36" y2="56" stroke="#c49a6c" stroke-width="1" opacity="0.5"/><path d="M30 54 C29 44,26 34,23 22 C21 14,20 9,20 5" stroke="#4a2208" stroke-width="4.5" fill="none" stroke-linecap="round"/><path d="M30 54 C29.5 44,26.5 34,23.5 22 C21.5 14,20.5 9,20.5 5" stroke="#7a4520" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-dasharray="3,5" opacity="0.6"/><path d="M24 28 C31 25,42 23,50 21" stroke="#4a2208" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M21 42 C15 40,9 37,5 35" stroke="#4a2208" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M21 17 C15 14,8 11,4 9" stroke="#4a2208" stroke-width="2" fill="none" stroke-linecap="round"/><circle cx="20" cy="5" r="8" fill="#1b4332"/><circle cx="27" cy="2" r="7" fill="#2d6a4f"/><circle cx="14" cy="8" r="6" fill="#40916c"/><circle cx="24" cy="9" r="6" fill="#2d6a4f"/><circle cx="18" cy="1" r="5" fill="#52b788" opacity="0.8"/><circle cx="50" cy="19" r="7" fill="#1b4332"/><circle cx="44" cy="17" r="6" fill="#2d6a4f"/><circle cx="53" cy="25" r="6" fill="#40916c"/><circle cx="5" cy="33" r="6" fill="#2d6a4f"/><circle cx="10" cy="29" r="5" fill="#40916c"/><circle cx="4" cy="8" r="6" fill="#1b4332"/><circle cx="9" cy="5" r="5" fill="#40916c"/></svg>` },
   ],
   decorations: [
     { id: 'rock',       name: 'Stone',       emoji: '🪨', cost: 20,  reward: 0,  growTime: 0,   xp: 5,  isDecor: true },
-    { id: 'fence',      name: 'Fence',       emoji: '🪵', cost: 15,  reward: 0,  growTime: 0,   xp: 5,  isDecor: true },
     { id: 'lamp',       name: 'Lantern',     emoji: '🏮', cost: 50,  reward: 1,  growTime: 0,   xp: 10, isDecor: true },
     { id: 'birdbath',   name: 'Bird Bath',   emoji: '🐦', cost: 70,  reward: 2,  growTime: 0,   xp: 15, isDecor: true },
     { id: 'pond',       name: 'Pond',        emoji: '💧', cost: 90,  reward: 3,  growTime: 0,   xp: 20, isDecor: true },
     { id: 'butterfly',  name: 'Butterfly',   emoji: '🦋', cost: 110, reward: 4,  growTime: 0,   xp: 25, isDecor: true },
   ],
   gnomes: [
-    { id: 'gnome_red',  name: 'Red Gnome',   emoji: '🧙', cost: 80,  reward: 5,  growTime: 0,   xp: 20, isGnome: true, bonus: 0.1 },
-    { id: 'gnome_blue', name: 'Blue Gnome',  emoji: '🧝', cost: 130, reward: 8,  growTime: 0,   xp: 35, isGnome: true, bonus: 0.15 },
-    { id: 'gnome_gold', name: 'Gold Gnome',  emoji: '🧞', cost: 250, reward: 15, growTime: 0,   xp: 60, isGnome: true, bonus: 0.25 },
+    { id: 'gnome_red',  name: 'Wizard',      emoji: '🧙', cost: 80,  reward: 5,  growTime: 0,   xp: 20, isGnome: true, bonus: 0.1 },
+    { id: 'gnome_blue', name: 'Elf',         emoji: '🧝', cost: 130, reward: 8,  growTime: 0,   xp: 35, isGnome: true, bonus: 0.15 },
+    { id: 'gnome_gold', name: 'Genie',       emoji: '🧞', cost: 250, reward: 15, growTime: 0,   xp: 60, isGnome: true, bonus: 0.25 },
   ],
 };
 
 const ALL_ITEMS = Object.values(CATALOG).flat();
-const GRID_COLS = 4;
+const GRID_COLS = 6;
 const XP_PER_LEVEL = (lvl) => 100 * lvl;
 const WATER_REGEN_SEC = 60; // 1 water per minute
 
 const EXPANSIONS = [
-  { level: 1, name: 'Small Yard',   emoji: '🌿', cost: 150,  rows: 5, desc: '16 → 20 plots' },
-  { level: 2, name: 'Garden Path',  emoji: '🌳', cost: 350,  rows: 6, desc: '20 → 24 plots' },
-  { level: 3, name: 'Back Garden',  emoji: '🏡', cost: 750,  rows: 7, desc: '24 → 28 plots' },
-  { level: 4, name: 'Grand Estate', emoji: '🏰', cost: 1500, rows: 8, desc: '28 → 32 plots' },
+  { level: 1, name: 'Small Yard',   emoji: '🌿', cost: 150,  desc: '24 → 30 plots' },
+  { level: 2, name: 'Garden Path',  emoji: '🌳', cost: 350,  desc: '30 → 36 plots' },
+  { level: 3, name: 'Back Garden',  emoji: '🏡', cost: 750,  desc: '36 → 42 plots' },
+  { level: 4, name: 'Grand Estate', emoji: '🏰', cost: 1500, desc: '42 → 48 plots' },
 ];
 
 // ── State ─────────────────────────────────────────────────────────
@@ -58,11 +59,12 @@ let state = {
   expansionLevel: 0,
   lastTick: Date.now(),
   waterTimer: 0,
-  tiles: Array(16).fill(null).map((_, i) => makeTile(i)),
+  tiles: Array(24).fill(null).map((_, i) => makeTile(i)),
   inventory: {},
   activeTab: 'garden',
   shopCategory: 'plants',
   selectedInvItem: null,
+  pendingTileIdx: null,
 };
 
 // ── Persistence ───────────────────────────────────────────────────
@@ -87,7 +89,7 @@ function loadState() {
     state.waterTimer = saved.waterTimer ?? 0;
     state.inventory = saved.inventory ?? {};
     state.expansionLevel = saved.expansionLevel ?? 0;
-    if (saved.tiles?.length >= 16) {
+    if (saved.tiles?.length >= 24) {
       state.tiles = saved.tiles;
     }
   } catch(e) {}
@@ -96,6 +98,14 @@ function loadState() {
 // ── Helpers ───────────────────────────────────────────────────────
 function getItem(id) {
   return ALL_ITEMS.find(i => i.id === id);
+}
+
+function itemArtHtml(item, size) {
+  if (item.customArt) {
+    const src = 'data:image/svg+xml,' + encodeURIComponent(item.customArt);
+    return `<img src="${src}" style="width:${size};height:${size};display:block">`;
+  }
+  return item.emoji;
 }
 
 function gnomeBonus() {
@@ -208,9 +218,15 @@ function renderGarden() {
 
     if (tile.item) {
       const item = getItem(tile.item);
+
       const emojiEl = document.createElement('div');
-      emojiEl.className = 'tile-emoji';
-      emojiEl.textContent = item.emoji;
+      const ready = item.growTime > 0 && isFullyGrown(tile);
+      emojiEl.className = 'tile-emoji' + (ready ? ' harvest-ready' : '');
+      if (item.customArt) {
+        emojiEl.innerHTML = itemArtHtml(item, '16px');
+      } else {
+        emojiEl.textContent = item.emoji;
+      }
       el.appendChild(emojiEl);
 
       const labelEl = document.createElement('div');
@@ -305,10 +321,17 @@ function renderShop() {
     const el = document.createElement('div');
     const canAfford = state.coins >= item.cost;
     el.className = 'shop-item' + (canAfford ? '' : ' item-cant-afford');
+    const tooltipLines = [];
+    if (item.reward > 0 && item.growTime > 0) tooltipLines.push(`🌻 +${item.reward} coins / harvest`);
+    if (item.reward > 0 && item.growTime === 0) tooltipLines.push(`🌻 +${item.reward} coins / 30s`);
+    if (item.growTime > 0) tooltipLines.push(`⏱ Grows in ${item.growTime >= 60 ? (item.growTime/60).toFixed(0)+'m' : item.growTime+'s'}`);
+    if (item.xp > 0) tooltipLines.push(`⭐ +${item.xp} XP`);
+    if (item.bonus) tooltipLines.push(`✨ +${Math.round(item.bonus*100)}% all earnings`);
     el.innerHTML = `
-      <div class="item-emoji">${item.emoji}</div>
+      <div class="item-emoji">${itemArtHtml(item, '30px')}</div>
       <div class="item-name">${item.name}</div>
       <div class="item-cost">🌻 ${item.cost}</div>
+      ${tooltipLines.length ? `<div class="item-tooltip">${tooltipLines.join('<br>')}</div>` : ''}
     `;
     if (canAfford) {
       el.addEventListener('click', () => buyItem(item.id));
@@ -334,7 +357,7 @@ function renderInventory() {
     const el = document.createElement('div');
     el.className = 'inv-item' + (state.selectedInvItem === id ? ' selected' : '');
     el.innerHTML = `
-      <div class="item-emoji">${item.emoji}</div>
+      <div class="item-emoji">${itemArtHtml(item, '30px')}</div>
       <div class="item-name">${item.name}</div>
       <div class="item-count">×${inv[id]}</div>
     `;
@@ -343,9 +366,33 @@ function renderInventory() {
   });
 }
 
+function calcEarningRate() {
+  // Returns coins/hour from all placed items (before gnome bonus)
+  let perHour = 0;
+  state.tiles.forEach(tile => {
+    if (!tile.item) return;
+    const item = getItem(tile.item);
+    if (!item) return;
+    if (item.growTime > 0 && item.reward > 0) {
+      // harvest cycle: reward every growTime seconds
+      perHour += (item.reward / item.growTime) * 3600;
+    } else if ((item.isDecor || item.isGnome) && item.reward > 0) {
+      // passive: 1 reward per 30s
+      perHour += (item.reward / 30) * 3600;
+    }
+  });
+  return Math.round(perHour * gnomeBonus());
+}
+
 function renderProgress() {
   const needed = XP_PER_LEVEL(state.level);
   const pct = Math.min(100, Math.round((state.xp / needed) * 100));
+  const rate = calcEarningRate();
+  const rateStr = rate >= 3600
+    ? `${(rate/3600).toFixed(1)}/s`
+    : rate >= 60
+      ? `${(rate/60).toFixed(1)}/min`
+      : `${rate}/hr`;
   document.getElementById('progress-content').innerHTML = `
     <div style="text-align:center;padding:10px 0 16px">
       <div style="font-size:48px">🌻</div>
@@ -354,10 +401,16 @@ function renderProgress() {
     <div class="xp-bar-bg"><div class="xp-bar" style="width:${pct}%"></div></div>
     <div class="xp-label">${state.xp} / ${needed} XP</div>
     <div style="margin-top:16px">
+      <div class="progress-stat"><span class="stat-label">Earning Rate</span><span class="stat-value">🌻 ${rateStr}</span></div>
       <div class="progress-stat"><span class="stat-label">Total Coins Earned</span><span class="stat-value">🌻 ${state.totalCoinsEarned}</span></div>
       <div class="progress-stat"><span class="stat-label">Plants Harvested</span><span class="stat-value">${state.plantsHarvested}</span></div>
       <div class="progress-stat"><span class="stat-label">Garden Plots</span><span class="stat-value">🏡 ${state.tiles.length}</span></div>
       <div class="progress-stat"><span class="stat-label">Water Capacity</span><span class="stat-value">💧 ${state.maxWater}</span></div>
+      <div class="progress-stat"><span class="stat-label">Water Refill</span><span class="stat-value">${
+        state.water >= state.maxWater
+          ? '💧 Full'
+          : `+1 💧 in ${Math.ceil(WATER_REGEN_SEC - (state.waterTimer % WATER_REGEN_SEC))}s`
+      }</span></div>
       <div class="progress-stat"><span class="stat-label">Gnome Bonus</span><span class="stat-value">+${Math.round((gnomeBonus()-1)*100)}%</span></div>
     </div>
   `;
@@ -373,7 +426,7 @@ function buyExpansion(level) {
   state.coins -= exp.cost;
   state.expansionLevel = level;
   const startId = state.tiles.length;
-  for (let i = 0; i < 4; i++) state.tiles.push(makeTile(startId + i));
+  for (let i = 0; i < 6; i++) state.tiles.push(makeTile(startId + i));
   addXP(50);
   toast(`${exp.emoji} ${exp.name} unlocked! +4 plots`);
   renderGarden();
@@ -394,6 +447,15 @@ function buyItem(id) {
 }
 
 function selectInvItem(id) {
+  // If we came from tapping an empty tile, place directly
+  if (state.pendingTileIdx !== null) {
+    const idx = state.pendingTileIdx;
+    state.pendingTileIdx = null;
+    switchTab('garden');
+    placeTile(idx, id);
+    return;
+  }
+
   if (state.selectedInvItem === id) {
     state.selectedInvItem = null;
     toast('Selection cleared');
@@ -401,12 +463,12 @@ function selectInvItem(id) {
     state.selectedInvItem = id;
     const item = getItem(id);
     toast(`${item.emoji} Tap a garden tile to place`);
-    // Switch to garden view
     switchTab('garden');
   }
   renderInventory();
   renderGarden();
 }
+
 
 function onTileClick(idx) {
   const tile = state.tiles[idx];
@@ -423,6 +485,24 @@ function onTileClick(idx) {
       harvestTile(idx);
       return;
     }
+  }
+
+  // One-tap water if growing and needs water
+  if (tile.item && !isFullyGrown(tile)) {
+    const item = getItem(tile.item);
+    if (item.growTime > 0 && !tile.watered && state.water > 0) {
+      waterTile(idx);
+      return;
+    }
+  }
+
+  // Empty tile — open bag to pick what to place
+  if (!tile.item) {
+    const hasItems = Object.keys(state.inventory).some(id => state.inventory[id] > 0);
+    if (!hasItems) { toast('Buy items from the Shop first!'); return; }
+    state.pendingTileIdx = idx;
+    switchTab('inventory');
+    return;
   }
 
   openTileModal(idx);
@@ -499,7 +579,7 @@ function openTileModal(idx) {
       grown ? '✅ Ready to harvest!' : `Growing… ${pct}%`;
 
     info.innerHTML = `
-      <span class="modal-emoji">${item.emoji}</span>
+      <span class="modal-emoji">${item.customArt ? itemArtHtml(item, '52px') : item.emoji}</span>
       <h3>${item.name}</h3>
       <p>${statusText}</p>
     `;
@@ -615,6 +695,7 @@ function removeTile(idx) {
 
 // ── Tab Navigation ────────────────────────────────────────────────
 function switchTab(tab) {
+  if (tab !== 'inventory') state.pendingTileIdx = null;
   state.activeTab = tab;
 
   // Update nav buttons

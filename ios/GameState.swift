@@ -62,9 +62,9 @@ let decorItems: [CatalogItem] = [
 ]
 
 let gnomeItems: [CatalogItem] = [
-    .init(id: "gnome_red",  name: "Red Gnome",  emoji: "🧙", cost: 80,  reward: 5,  growTime: 0, xp: 20, isGnome: true, gnomeBonus: 0.10),
-    .init(id: "gnome_blue", name: "Blue Gnome", emoji: "🧝", cost: 130, reward: 8,  growTime: 0, xp: 35, isGnome: true, gnomeBonus: 0.15),
-    .init(id: "gnome_gold", name: "Gold Gnome", emoji: "🧞", cost: 250, reward: 15, growTime: 0, xp: 60, isGnome: true, gnomeBonus: 0.25),
+    .init(id: "gnome_red",  name: "Wizard",     emoji: "🧙", cost: 80,  reward: 5,  growTime: 0, xp: 20, isGnome: true, gnomeBonus: 0.10),
+    .init(id: "gnome_blue", name: "Elf",        emoji: "🧝", cost: 130, reward: 8,  growTime: 0, xp: 35, isGnome: true, gnomeBonus: 0.15),
+    .init(id: "gnome_gold", name: "Genie",      emoji: "🧞", cost: 250, reward: 15, growTime: 0, xp: 60, isGnome: true, gnomeBonus: 0.25),
 ]
 
 let allCatalogItems: [CatalogItem] = plantItems + treeItems + decorItems + gnomeItems

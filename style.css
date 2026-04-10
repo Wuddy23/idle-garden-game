@@ -76,8 +76,8 @@ body {
 
 #garden-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 6px;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0;
   padding: 12px;
   width: 100%;
   max-width: 380px;
@@ -87,27 +87,31 @@ body {
 .garden-tile {
   aspect-ratio: 1;
   background: var(--soil);
-  border-radius: 12px;
+  border-radius: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   position: relative;
-  transition: transform 0.1s, box-shadow 0.1s;
-  box-shadow: 0 3px 0 #4a2c18, inset 0 1px 0 rgba(255,255,255,0.1);
-  min-height: 72px;
+  transition: filter 0.1s;
+  border: 1px solid rgba(0,0,0,0.12);
+  min-height: 36px;
 }
 
 .garden-tile:active {
-  transform: scale(0.95) translateY(2px);
-  box-shadow: 0 1px 0 #4a2c18;
+  filter: brightness(0.85);
 }
 
 .garden-tile.empty {
   background: var(--soil-light);
-  border: 2px dashed rgba(255,255,255,0.3);
 }
+
+/* Round only the outer corners of the grid */
+#garden-grid .garden-tile:nth-child(1)             { border-radius: 12px 0 0 0; }
+#garden-grid .garden-tile:nth-child(6)             { border-radius: 0 12px 0 0; }
+#garden-grid .garden-tile:nth-last-child(1)        { border-radius: 0 0 12px 0; }
+#garden-grid .garden-tile:nth-last-child(6)        { border-radius: 0 0 0 12px; }
 
 .garden-tile.selected-to-place {
   border: 2px dashed var(--gold);
@@ -120,9 +124,14 @@ body {
 }
 
 .tile-emoji {
-  font-size: 32px;
+  font-size: 16px;
   line-height: 1;
   transition: transform 0.3s;
+}
+
+.tile-emoji.harvest-ready {
+  transform: scale(1.6);
+  filter: drop-shadow(0 0 4px rgba(244,196,48,0.8));
 }
 
 .tile-emoji.grow-pop {
@@ -136,24 +145,16 @@ body {
 }
 
 .tile-label {
-  font-size: 9px;
-  color: rgba(255,255,255,0.8);
-  margin-top: 2px;
-  font-weight: 600;
-  text-align: center;
-  max-width: 90%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  display: none;
 }
 
 /* Growth bar */
 .growth-bar-bg {
   position: absolute;
-  bottom: 5px;
-  left: 6px;
-  right: 6px;
-  height: 4px;
+  bottom: 2px;
+  left: 3px;
+  right: 3px;
+  height: 3px;
   background: rgba(0,0,0,0.3);
   border-radius: 2px;
   overflow: hidden;
@@ -169,9 +170,9 @@ body {
 /* Water drop badge */
 .water-badge {
   position: absolute;
-  top: 4px;
-  right: 4px;
-  font-size: 12px;
+  top: 2px;
+  right: 2px;
+  font-size: 8px;
   animation: drip 1.5s ease-in-out infinite;
 }
 
@@ -341,6 +342,39 @@ body {
   box-shadow: 0 2px 6px rgba(0,0,0,0.08);
   transition: transform 0.15s, box-shadow 0.15s;
   border: 2px solid transparent;
+  position: relative;
+}
+
+.shop-item .item-tooltip {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(30,30,30,0.92);
+  color: #fff;
+  font-size: 11px;
+  line-height: 1.5;
+  padding: 6px 9px;
+  border-radius: 8px;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+
+.shop-item .item-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: rgba(30,30,30,0.92);
+}
+
+.shop-item:hover .item-tooltip {
+  display: block;
 }
 
 .shop-item:active, .inv-item:active {
@@ -354,6 +388,9 @@ body {
 .item-emoji {
   font-size: 30px;
   line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .item-name {
@@ -458,7 +495,9 @@ body {
 
 #tile-modal-info .modal-emoji {
   font-size: 52px;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-bottom: 8px;
 }
 
