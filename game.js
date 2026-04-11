@@ -6,6 +6,8 @@ const CATALOG = {
     { id: 'rose',       name: 'Rose',        emoji: '🌹', cost: 25,  reward: 8,  growTime: 65,  xp: 12 },
     { id: 'sunflower',  name: 'Sunflower',   emoji: '🌻', cost: 40,  reward: 16, growTime: 90,  xp: 20 },
     { id: 'tulip',      name: 'Tulip',       emoji: '🌷', cost: 55,  reward: 25, growTime: 130, xp: 30 },
+    { id: 'violet',     name: 'Violet',      emoji: '🪻', cost: 70,  reward: 32, growTime: 155, xp: 38,
+      customArt: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 70"><defs><radialGradient id="vg1" cx="50%" cy="60%"><stop offset="0%" stop-color="#e0a8f0"/><stop offset="100%" stop-color="#5a1078"/></radialGradient><radialGradient id="vg2" cx="50%" cy="60%"><stop offset="0%" stop-color="#cc88e8"/><stop offset="100%" stop-color="#3d0060"/></radialGradient></defs><!-- stem --><path d="M30 42 C30 50,31 58,30 68" stroke="#3a7d2c" stroke-width="2.5" fill="none" stroke-linecap="round"/><!-- left leaf --><path d="M30 52 C26 46,14 44,10 48 C14 46,24 52,30 54 Z" fill="#4a9e38"/><!-- right leaf --><path d="M30 58 C34 52,46 50,50 54 C46 52,36 58,30 60 Z" fill="#3a8c28"/><!-- top-left petal --><ellipse cx="22" cy="14" rx="10" ry="13" fill="url(#vg1)" transform="rotate(-25 22 14)"/><!-- top-right petal --><ellipse cx="38" cy="14" rx="10" ry="13" fill="url(#vg1)" transform="rotate(25 38 14)"/><!-- left petal --><ellipse cx="13" cy="27" rx="13" ry="9" fill="url(#vg2)" transform="rotate(-15 13 27)"/><!-- right petal --><ellipse cx="47" cy="27" rx="13" ry="9" fill="url(#vg2)" transform="rotate(15 47 27)"/><!-- bottom petal --><ellipse cx="30" cy="42" rx="13" ry="10" fill="url(#vg1)"/><!-- dark center blush --><ellipse cx="30" cy="28" rx="9" ry="7" fill="#1e003a" opacity="0.3"/><!-- veins --><line x1="30" y1="33" x2="23" y2="47" stroke="#2a004a" stroke-width="0.8" opacity="0.4"/><line x1="30" y1="33" x2="30" y2="49" stroke="#2a004a" stroke-width="0.8" opacity="0.4"/><line x1="30" y1="33" x2="37" y2="47" stroke="#2a004a" stroke-width="0.8" opacity="0.4"/><!-- center --><circle cx="30" cy="26" r="5.5" fill="#140028" opacity="0.8"/><ellipse cx="30" cy="24.5" rx="4" ry="2.5" fill="#fff59d" opacity="0.95"/><circle cx="28.2" cy="24" r="1.3" fill="#f9a825"/><circle cx="31.8" cy="24" r="1.3" fill="#f9a825"/></svg>` },
     { id: 'mushroom',   name: 'Mushroom',    emoji: '🍄', cost: 80,  reward: 38, growTime: 180, xp: 45 },
     { id: 'lily',       name: 'Water Lily',  emoji: '🪷', cost: 120, reward: 55, growTime: 70,  xp: 65, pondOnly: true, noWater: true },
   ],
@@ -21,8 +23,8 @@ const CATALOG = {
     { id: 'rock',       name: 'Stone',       emoji: '🪨', cost: 20,  reward: 0,  growTime: 0,   xp: 5,  isDecor: true },
     { id: 'lamp',       name: 'Lantern',     emoji: '🏮', cost: 50,  reward: 1,  growTime: 0,   xp: 10, isDecor: true },
     { id: 'birdbath',   name: 'Bird Bath',   emoji: '🐦', cost: 70,  reward: 2,  growTime: 0,   xp: 15, isDecor: true,
-      customArt: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 70"><ellipse cx="30" cy="68" rx="10" ry="2" fill="rgba(0,0,0,0.12)"/><rect x="26" y="52" width="8" height="14" rx="3" fill="#a0714f"/><ellipse cx="30" cy="52" rx="10" ry="3" fill="#8b5e3c"/><ellipse cx="30" cy="51" rx="10" ry="3" fill="#a0714f"/><path d="M14 38 Q12 30,30 28 Q48 30,46 38 Q44 46,30 47 Q16 46,14 38 Z" fill="#0096c7"/><path d="M14 38 Q12 30,30 28 Q48 30,46 38 Q44 46,30 47 Q16 46,14 38 Z" fill="none" stroke="#0077b6" stroke-width="1" opacity="0.5"/><ellipse cx="25" cy="35" rx="6" ry="3" fill="white" opacity="0.15" transform="rotate(-10 25 35)"/><path d="M28 28 L28 18 Q28 12,30 10 Q32 12,32 18 L32 28" fill="#a0714f"/><path d="M30 10 Q28 6,26 5 Q28 4,30 5 Q32 4,34 5 Q32 6,30 10 Z" fill="#c49a6c"/><path d="M30 12 Q30 8,30 12" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/><path d="M28 15 Q26 12,24 13" stroke="white" stroke-width="1" stroke-linecap="round" opacity="0.5"/><path d="M32 15 Q34 12,36 13" stroke="white" stroke-width="1" stroke-linecap="round" opacity="0.5"/><ellipse cx="30" cy="38" rx="3" ry="1.5" fill="white" opacity="0.3"/><path d="M29 37 Q30 34,31 37" stroke="white" stroke-width="0.8" fill="none" opacity="0.5"/><path d="M18 40 Q16 37,20 36 Q22 36,22 38 Q22 40,20 41 Z" fill="#f4a261" opacity="0.8"/><path d="M19 38 Q18 36,20 35" stroke="#e07b3a" stroke-width="0.7" fill="none"/><circle cx="21" cy="37" r="1" fill="#333" opacity="0.6"/></svg>` },
-    { id: 'pond',       name: 'Pond',        emoji: '💧', cost: 90,  reward: 3,  growTime: 0,   xp: 20, isDecor: true,
+      customArt: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60"><ellipse cx="30" cy="59" rx="9" ry="1.5" fill="rgba(0,0,0,0.15)"/><!-- base pedestal --><rect x="24" y="44" width="12" height="14" rx="2" fill="#b8a09a" stroke="#1a1a1a" stroke-width="1.8"/><!-- pedestal cap --><rect x="21" y="41" width="18" height="5" rx="2" fill="#c4b0a8" stroke="#1a1a1a" stroke-width="1.8"/><!-- bowl --><path d="M6 30 Q6 18,30 16 Q54 18,54 30 Q52 42,30 44 Q8 42,6 30 Z" fill="#c4b0a8" stroke="#1a1a1a" stroke-width="2.2"/><!-- bowl inner highlight --><path d="M38 36 Q44 34,46 38" stroke="#1a1a1a" stroke-width="1.4" fill="none" stroke-linecap="round" opacity="0.4"/><!-- bird body --><ellipse cx="27" cy="25" rx="10" ry="8" fill="#5bbde4" stroke="#1a1a1a" stroke-width="1.8"/><!-- bird head --><circle cx="18" cy="20" r="7" fill="#5bbde4" stroke="#1a1a1a" stroke-width="1.8"/><!-- beak --><polygon points="10,21 14,19 14,23" fill="#f5c518" stroke="#1a1a1a" stroke-width="1"/><!-- eye --><circle cx="16" cy="19" r="1.8" fill="#1a1a1a"/><circle cx="15.4" cy="18.5" r="0.6" fill="white"/><!-- wing --><path d="M28 20 C32 12,44 10,48 14 C44 14,38 18,32 22 Z" fill="#3a8fb5" stroke="#1a1a1a" stroke-width="1.6"/><!-- wing feather lines --><path d="M36 14 C38 18,36 21,34 22" stroke="#1a1a1a" stroke-width="0.9" fill="none" opacity="0.5"/><path d="M41 13 C43 17,41 20,39 22" stroke="#1a1a1a" stroke-width="0.9" fill="none" opacity="0.5"/></svg>` },
+    { id: 'pond',       name: 'Pond',        emoji: '💧', cost: 500, reward: 1,  rewardInterval: 60, growTime: 0, xp: 20, isDecor: true,
       customArt: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60"><defs><radialGradient id="pg" cx="42%" cy="38%"><stop offset="0%" stop-color="#90e0ef"/><stop offset="55%" stop-color="#0096c7"/><stop offset="100%" stop-color="#023e8a"/></radialGradient><clipPath id="pc"><path d="M30 2 C42 1,55 8,57 20 C60 32,54 44,46 52 C38 59,22 60,13 54 C4 48,1 36,3 24 C5 12,18 3,30 2 Z"/></clipPath></defs><path d="M30 2 C42 1,55 8,57 20 C60 32,54 44,46 52 C38 59,22 60,13 54 C4 48,1 36,3 24 C5 12,18 3,30 2 Z" fill="#023e8a" opacity="0.25"/><path d="M30 2 C42 1,55 8,57 20 C60 32,54 44,46 52 C38 59,22 60,13 54 C4 48,1 36,3 24 C5 12,18 3,30 2 Z" fill="url(#pg)"/><path d="M30 2 C42 1,55 8,57 20 C60 32,54 44,46 52 C38 59,22 60,13 54 C4 48,1 36,3 24 C5 12,18 3,30 2 Z" fill="none" stroke="#0077b6" stroke-width="1" opacity="0.4"/><ellipse cx="25" cy="20" rx="12" ry="7" fill="white" opacity="0.07" transform="rotate(-15 25 20)"/><path d="M8 28 Q13 23,18 28 Q23 33,28 28 Q33 23,38 28 Q43 33,48 29" stroke="white" stroke-width="0.9" fill="none" opacity="0.22" stroke-linecap="round" clip-path="url(#pc)"/><path d="M10 38 Q15 33,20 38 Q25 43,30 38 Q35 33,40 38 Q45 43,50 39" stroke="white" stroke-width="0.8" fill="none" opacity="0.15" stroke-linecap="round" clip-path="url(#pc)"/><ellipse cx="14" cy="44" rx="7" ry="5" fill="#52b788" opacity="0.95"/><line x1="14" y1="39" x2="14" y2="44" stroke="#2d6a4f" stroke-width="1.2"/><circle cx="14" cy="41" r="2" fill="#ff6b9d" opacity="0.9"/><ellipse cx="46" cy="16" rx="6" ry="4.5" fill="#52b788" opacity="0.95"/><line x1="46" y1="11.5" x2="46" y2="16" stroke="#2d6a4f" stroke-width="1.2"/><circle cx="46" cy="13.5" r="1.8" fill="#ff6b9d" opacity="0.9"/><ellipse cx="44" cy="48" rx="5" ry="3.5" fill="#40916c" opacity="0.9"/><line x1="44" y1="44.5" x2="44" y2="48" stroke="#2d6a4f" stroke-width="1"/><circle cx="44" cy="46" r="1.5" fill="#ff6b9d" opacity="0.8"/><path d="M24 32 Q27 29,30 32 L27 36 Z" fill="#f77f00" opacity="0.85"/><path d="M38 22 Q41 19,44 22 L41 26 Z" fill="#f4a261" opacity="0.8"/><path d="M18 22 Q20 20,22 22 L20 25 Z" fill="#f77f00" opacity="0.7"/></svg>` },
     { id: 'butterfly',  name: 'Butterfly',   emoji: '🦋', cost: 110, reward: 4,  growTime: 0,   xp: 25, isDecor: true },
   ],
@@ -39,10 +41,10 @@ const XP_PER_LEVEL = (lvl) => 100 * lvl;
 const WATER_REGEN_SEC = 60; // 1 water per minute
 
 const EXPANSIONS = [
-  { level: 1, name: 'Small Yard',   emoji: '🌿', requiredLevel: 3,  desc: '24 → 30 plots' },
-  { level: 2, name: 'Garden Path',  emoji: '🌳', requiredLevel: 5,  desc: '30 → 36 plots' },
-  { level: 3, name: 'Back Garden',  emoji: '🏡', requiredLevel: 8,  desc: '36 → 42 plots' },
-  { level: 4, name: 'Grand Estate', emoji: '🏰', requiredLevel: 12, desc: '42 → 48 plots' },
+  { level: 1, name: 'Small Yard',   emoji: '🌿', requiredLevel: 3,  cost: 300,  desc: '24 → 30 plots' },
+  { level: 2, name: 'Garden Path',  emoji: '🌳', requiredLevel: 5,  cost: 800,  desc: '30 → 36 plots' },
+  { level: 3, name: 'Back Garden',  emoji: '🏡', requiredLevel: 8,  cost: 2000, desc: '36 → 42 plots' },
+  { level: 4, name: 'Grand Estate', emoji: '🏰', requiredLevel: 12, cost: 5000, desc: '42 → 48 plots' },
 ];
 
 // ── State ─────────────────────────────────────────────────────────
@@ -181,8 +183,7 @@ function tick() {
     const item = getItem(tile.item);
     if (!item) return;
     if ((item.isDecor || item.isGnome) && item.reward > 0) {
-      // Every 30s per reward point
-      const interval = 30;
+      const interval = item.rewardInterval ?? 30;
       if (!tile.lastRewardAt) tile.lastRewardAt = now;
       const elapsed = (now - tile.lastRewardAt) / 1000;
       const ticks = Math.floor(elapsed / interval);
@@ -222,6 +223,9 @@ function renderGarden() {
     if (tile.item) {
       const item = getItem(tile.item);
 
+      // Birdbath gets grassy background
+      if (tile.item === 'birdbath') el.classList.add('birdbath-tile');
+
       // Pond gets special tile treatment
       if (tile.item === 'pond') {
         el.classList.add('pond-tile');
@@ -250,14 +254,17 @@ function renderGarden() {
         for (let k = 0; k < count; k++) {
           const icon = document.createElement('div');
           icon.className = 'plant-icon' + (ready ? ' harvest-ready' : '');
-          icon.textContent = item.emoji;
           const zoneCol = k % cols;
           const zoneRow = Math.floor(k / cols);
           const zoneW = 100 / cols, zoneH = 100 / rows;
-          // Random position within zone, with a small margin
           const left = zoneCol * zoneW + 12 + rnd(k + 2) * (zoneW - 24);
           const top  = zoneRow * zoneH + 12 + rnd(k + 3) * (zoneH - 24);
           const sz = 9 + rnd(k + 1) * 7; // 9–16px
+          if (item.customArt) {
+            icon.innerHTML = itemArtHtml(item, `${sz.toFixed(0)}px`);
+          } else {
+            icon.textContent = item.emoji;
+          }
           icon.style.cssText = `position:absolute;font-size:${sz.toFixed(0)}px;left:${left.toFixed(1)}%;top:${top.toFixed(1)}%;transform:translate(-50%,-50%);line-height:1`;
           el.appendChild(icon);
         }
@@ -301,7 +308,7 @@ function renderGarden() {
       if (item.isDecor || item.isGnome) {
         const tipEl = document.getElementById('shop-tooltip');
         const lines = [];
-        if (item.isDecor && item.reward > 0) lines.push(`🪙 +${item.reward} coins / 30s`);
+        if (item.isDecor && item.reward > 0) lines.push(`🪙 +${item.reward} coin${item.reward !== 1 ? 's' : ''} / ${item.rewardInterval ?? 30}s`);
         if (item.isGnome) lines.push(`✨ +${Math.round(item.bonus*100)}% all earnings`);
         if (lines.length) {
           el.addEventListener('mouseenter', () => {
@@ -327,6 +334,34 @@ function renderGarden() {
     el.addEventListener('click', () => onTileClick(i));
     grid.appendChild(el);
   });
+
+  // Round corners of first and last row
+  const totalTiles = state.tiles.length;
+  const tlEl = grid.querySelector(`[data-idx="0"]`);
+  const trEl = grid.querySelector(`[data-idx="${GRID_COLS - 1}"]`);
+  const blEl = grid.querySelector(`[data-idx="${totalTiles - GRID_COLS}"]`);
+  const brEl = grid.querySelector(`[data-idx="${totalTiles - 1}"]`);
+  if (tlEl) tlEl.style.borderTopLeftRadius = '12px';
+  if (trEl) trEl.style.borderTopRightRadius = '12px';
+  if (blEl) blEl.style.borderBottomLeftRadius = '12px';
+  if (brEl) brEl.style.borderBottomRightRadius = '12px';
+
+  // Show next expansion as locked preview row
+  const nextExp = EXPANSIONS.find(e => state.expansionLevel < e.level);
+  if (nextExp) {
+    const meetsLevel = state.level >= nextExp.requiredLevel;
+    const canAfford = state.coins >= nextExp.cost;
+    const label = !meetsLevel ? `Lvl ${nextExp.requiredLevel} · 🪙 ${nextExp.cost}` : `🪙 ${nextExp.cost}`;
+    const row = document.createElement('div');
+    row.className = 'expansion-preview-row';
+    row.innerHTML = `<span class="preview-lock">🔒</span><span class="preview-label">${label}</span>`;
+    row.addEventListener('click', () => {
+      if (!meetsLevel) { toast(`Reach Level ${nextExp.requiredLevel} to unlock!`); return; }
+      if (!canAfford) { toast(`Need 🪙 ${nextExp.cost} coins!`); return; }
+      buyExpansion(nextExp.level);
+    });
+    grid.appendChild(row);
+  }
 }
 
 function renderPondPebbles(el, adjTop, adjBottom, adjLeft, adjRight, tile) {
@@ -406,7 +441,7 @@ function renderPondPebbles(el, adjTop, adjBottom, adjLeft, adjRight, tile) {
   const tip = document.getElementById('shop-tooltip');
   el.addEventListener('mouseenter', () => {
     const rect = el.getBoundingClientRect();
-    tip.innerHTML = `🪙 +${pondItem.reward} coins / 30s`;
+    tip.innerHTML = `🪙 +${pondItem.reward} coin / ${pondItem.rewardInterval ?? 30}s`;
     tip.style.display = 'block';
     tip.style.left = (rect.left + rect.width / 2) + 'px';
     tip.style.top = (rect.top - 8) + 'px';
@@ -435,12 +470,19 @@ function renderShop() {
 
   if (state.shopCategory === 'land') {
     container.className = 'land-list';
+    let shownLocked = false;
     EXPANSIONS.forEach(exp => {
       const purchased = state.expansionLevel >= exp.level;
       const prevPurchased = state.expansionLevel >= exp.level - 1;
       const meetsLevel = state.level >= exp.requiredLevel;
+      const canAfford = state.coins >= exp.cost;
       const available = prevPurchased && meetsLevel;
       const locked = !prevPurchased || !meetsLevel;
+      // Only show the first locked expansion as a preview; hide the rest
+      if (locked) {
+        if (shownLocked) return;
+        shownLocked = true;
+      }
       const el = document.createElement('div');
       el.className = 'expansion-card' + (purchased ? ' exp-purchased' : locked ? ' exp-locked' : '');
       el.innerHTML = `
@@ -452,14 +494,12 @@ function renderShop() {
         <div class="exp-action">
           ${purchased
             ? '<span class="exp-badge purchased">✓ Owned</span>'
-            : meetsLevel && !prevPurchased
-              ? '<span class="exp-badge locked">🔒 Buy previous first</span>'
-              : !meetsLevel
-                ? `<span class="exp-badge locked">Lvl ${exp.requiredLevel} required</span>`
-                : '<span class="exp-badge buy">Claim</span>'}
+            : locked
+              ? `<span class="exp-badge locked">🔒 Lvl ${exp.requiredLevel}</span>`
+              : `<span class="exp-badge buy ${canAfford ? '' : 'broke'}">🪙 ${exp.cost}</span>`}
         </div>
       `;
-      if (available && !purchased) {
+      if (available && !purchased && canAfford) {
         el.addEventListener('click', () => buyExpansion(exp.level));
       }
       container.appendChild(el);
@@ -475,7 +515,7 @@ function renderShop() {
     el.className = 'shop-item' + (canAfford ? '' : ' item-cant-afford');
     const tooltipLines = [];
     if (item.reward > 0 && item.growTime > 0) tooltipLines.push(`🪙 +${item.reward} coins / harvest`);
-    if (item.reward > 0 && item.growTime === 0) tooltipLines.push(`🪙 +${item.reward} coins / 30s`);
+    if (item.reward > 0 && item.growTime === 0) tooltipLines.push(`🪙 +${item.reward} coin${item.reward !== 1 ? 's' : ''} / ${item.rewardInterval ?? 30}s`);
     if (item.growTime > 0) tooltipLines.push(`⏱ Grows in ${item.growTime >= 60 ? (item.growTime/60).toFixed(0)+'m' : item.growTime+'s'}`);
     if (item.xp > 0) tooltipLines.push(`⭐ +${item.xp} XP`);
     if (item.bonus) tooltipLines.push(`✨ +${Math.round(item.bonus*100)}% all earnings`);
@@ -550,8 +590,7 @@ function calcEarningRate() {
       // harvest cycle: reward every growTime seconds
       perHour += (item.reward / item.growTime) * 3600;
     } else if ((item.isDecor || item.isGnome) && item.reward > 0) {
-      // passive: 1 reward per 30s
-      perHour += (item.reward / 30) * 3600;
+      perHour += (item.reward / (item.rewardInterval ?? 30)) * 3600;
     }
   });
   return Math.round(perHour * gnomeBonus());
@@ -596,6 +635,8 @@ function buyExpansion(level) {
   if (state.expansionLevel >= level) { toast('Already purchased!'); return; }
   if (state.expansionLevel < level - 1) { toast('Unlock the previous expansion first!'); return; }
   if (state.level < exp.requiredLevel) { toast(`Reach Level ${exp.requiredLevel} to unlock!`); return; }
+  if (state.coins < exp.cost) { toast(`Need 🪙 ${exp.cost} coins!`); return; }
+  state.coins -= exp.cost;
   state.expansionLevel = level;
   const startId = state.tiles.length;
   for (let i = 0; i < 6; i++) state.tiles.push(makeTile(startId + i));
