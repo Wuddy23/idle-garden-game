@@ -2,12 +2,12 @@
 
 const CATALOG = {
   plants: [
-    { id: 'daisy',      name: 'Daisy',       emoji: '🌼', cost: 10,  reward: 2,  growTime: 20,  xp: 5  },
-    { id: 'rose',       name: 'Rose',        emoji: '🌹', cost: 25,  reward: 6,  growTime: 45,  xp: 12 },
-    { id: 'sunflower',  name: 'Sunflower',   emoji: '🌻', cost: 40,  reward: 12, growTime: 60,  xp: 20 },
-    { id: 'tulip',      name: 'Tulip',       emoji: '🌷', cost: 55,  reward: 18, growTime: 90,  xp: 30 },
-    { id: 'mushroom',   name: 'Mushroom',    emoji: '🍄', cost: 80,  reward: 28, growTime: 120, xp: 45 },
-    { id: 'lily',       name: 'Water Lily',  emoji: '🪷', cost: 120, reward: 42, growTime: 180, xp: 65 },
+    { id: 'daisy',      name: 'Daisy',       emoji: '🌼', cost: 10,  reward: 3,  growTime: 30,  xp: 5  },
+    { id: 'rose',       name: 'Rose',        emoji: '🌹', cost: 25,  reward: 8,  growTime: 65,  xp: 12 },
+    { id: 'sunflower',  name: 'Sunflower',   emoji: '🌻', cost: 40,  reward: 16, growTime: 90,  xp: 20 },
+    { id: 'tulip',      name: 'Tulip',       emoji: '🌷', cost: 55,  reward: 25, growTime: 130, xp: 30 },
+    { id: 'mushroom',   name: 'Mushroom',    emoji: '🍄', cost: 80,  reward: 38, growTime: 180, xp: 45 },
+    { id: 'lily',       name: 'Water Lily',  emoji: '🪷', cost: 120, reward: 55, growTime: 70,  xp: 65, pondOnly: true, noWater: true },
   ],
   trees: [
     { id: 'pine',       name: 'Pine Tree',   emoji: '🌲', cost: 60,  reward: 8,  growTime: 180, xp: 25, isTree: true },
@@ -20,8 +20,10 @@ const CATALOG = {
   decorations: [
     { id: 'rock',       name: 'Stone',       emoji: '🪨', cost: 20,  reward: 0,  growTime: 0,   xp: 5,  isDecor: true },
     { id: 'lamp',       name: 'Lantern',     emoji: '🏮', cost: 50,  reward: 1,  growTime: 0,   xp: 10, isDecor: true },
-    { id: 'birdbath',   name: 'Bird Bath',   emoji: '🐦', cost: 70,  reward: 2,  growTime: 0,   xp: 15, isDecor: true },
-    { id: 'pond',       name: 'Pond',        emoji: '💧', cost: 90,  reward: 3,  growTime: 0,   xp: 20, isDecor: true },
+    { id: 'birdbath',   name: 'Bird Bath',   emoji: '🐦', cost: 70,  reward: 2,  growTime: 0,   xp: 15, isDecor: true,
+      customArt: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 70"><ellipse cx="30" cy="68" rx="10" ry="2" fill="rgba(0,0,0,0.12)"/><rect x="26" y="52" width="8" height="14" rx="3" fill="#a0714f"/><ellipse cx="30" cy="52" rx="10" ry="3" fill="#8b5e3c"/><ellipse cx="30" cy="51" rx="10" ry="3" fill="#a0714f"/><path d="M14 38 Q12 30,30 28 Q48 30,46 38 Q44 46,30 47 Q16 46,14 38 Z" fill="#0096c7"/><path d="M14 38 Q12 30,30 28 Q48 30,46 38 Q44 46,30 47 Q16 46,14 38 Z" fill="none" stroke="#0077b6" stroke-width="1" opacity="0.5"/><ellipse cx="25" cy="35" rx="6" ry="3" fill="white" opacity="0.15" transform="rotate(-10 25 35)"/><path d="M28 28 L28 18 Q28 12,30 10 Q32 12,32 18 L32 28" fill="#a0714f"/><path d="M30 10 Q28 6,26 5 Q28 4,30 5 Q32 4,34 5 Q32 6,30 10 Z" fill="#c49a6c"/><path d="M30 12 Q30 8,30 12" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/><path d="M28 15 Q26 12,24 13" stroke="white" stroke-width="1" stroke-linecap="round" opacity="0.5"/><path d="M32 15 Q34 12,36 13" stroke="white" stroke-width="1" stroke-linecap="round" opacity="0.5"/><ellipse cx="30" cy="38" rx="3" ry="1.5" fill="white" opacity="0.3"/><path d="M29 37 Q30 34,31 37" stroke="white" stroke-width="0.8" fill="none" opacity="0.5"/><path d="M18 40 Q16 37,20 36 Q22 36,22 38 Q22 40,20 41 Z" fill="#f4a261" opacity="0.8"/><path d="M19 38 Q18 36,20 35" stroke="#e07b3a" stroke-width="0.7" fill="none"/><circle cx="21" cy="37" r="1" fill="#333" opacity="0.6"/></svg>` },
+    { id: 'pond',       name: 'Pond',        emoji: '💧', cost: 90,  reward: 3,  growTime: 0,   xp: 20, isDecor: true,
+      customArt: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60"><defs><radialGradient id="pg" cx="42%" cy="38%"><stop offset="0%" stop-color="#90e0ef"/><stop offset="55%" stop-color="#0096c7"/><stop offset="100%" stop-color="#023e8a"/></radialGradient><clipPath id="pc"><path d="M30 2 C42 1,55 8,57 20 C60 32,54 44,46 52 C38 59,22 60,13 54 C4 48,1 36,3 24 C5 12,18 3,30 2 Z"/></clipPath></defs><path d="M30 2 C42 1,55 8,57 20 C60 32,54 44,46 52 C38 59,22 60,13 54 C4 48,1 36,3 24 C5 12,18 3,30 2 Z" fill="#023e8a" opacity="0.25"/><path d="M30 2 C42 1,55 8,57 20 C60 32,54 44,46 52 C38 59,22 60,13 54 C4 48,1 36,3 24 C5 12,18 3,30 2 Z" fill="url(#pg)"/><path d="M30 2 C42 1,55 8,57 20 C60 32,54 44,46 52 C38 59,22 60,13 54 C4 48,1 36,3 24 C5 12,18 3,30 2 Z" fill="none" stroke="#0077b6" stroke-width="1" opacity="0.4"/><ellipse cx="25" cy="20" rx="12" ry="7" fill="white" opacity="0.07" transform="rotate(-15 25 20)"/><path d="M8 28 Q13 23,18 28 Q23 33,28 28 Q33 23,38 28 Q43 33,48 29" stroke="white" stroke-width="0.9" fill="none" opacity="0.22" stroke-linecap="round" clip-path="url(#pc)"/><path d="M10 38 Q15 33,20 38 Q25 43,30 38 Q35 33,40 38 Q45 43,50 39" stroke="white" stroke-width="0.8" fill="none" opacity="0.15" stroke-linecap="round" clip-path="url(#pc)"/><ellipse cx="14" cy="44" rx="7" ry="5" fill="#52b788" opacity="0.95"/><line x1="14" y1="39" x2="14" y2="44" stroke="#2d6a4f" stroke-width="1.2"/><circle cx="14" cy="41" r="2" fill="#ff6b9d" opacity="0.9"/><ellipse cx="46" cy="16" rx="6" ry="4.5" fill="#52b788" opacity="0.95"/><line x1="46" y1="11.5" x2="46" y2="16" stroke="#2d6a4f" stroke-width="1.2"/><circle cx="46" cy="13.5" r="1.8" fill="#ff6b9d" opacity="0.9"/><ellipse cx="44" cy="48" rx="5" ry="3.5" fill="#40916c" opacity="0.9"/><line x1="44" y1="44.5" x2="44" y2="48" stroke="#2d6a4f" stroke-width="1"/><circle cx="44" cy="46" r="1.5" fill="#ff6b9d" opacity="0.8"/><path d="M24 32 Q27 29,30 32 L27 36 Z" fill="#f77f00" opacity="0.85"/><path d="M38 22 Q41 19,44 22 L41 26 Z" fill="#f4a261" opacity="0.8"/><path d="M18 22 Q20 20,22 22 L20 25 Z" fill="#f77f00" opacity="0.7"/></svg>` },
     { id: 'butterfly',  name: 'Butterfly',   emoji: '🦋', cost: 110, reward: 4,  growTime: 0,   xp: 25, isDecor: true },
   ],
   gnomes: [
@@ -37,10 +39,10 @@ const XP_PER_LEVEL = (lvl) => 100 * lvl;
 const WATER_REGEN_SEC = 60; // 1 water per minute
 
 const EXPANSIONS = [
-  { level: 1, name: 'Small Yard',   emoji: '🌿', cost: 150,  desc: '24 → 30 plots' },
-  { level: 2, name: 'Garden Path',  emoji: '🌳', cost: 350,  desc: '30 → 36 plots' },
-  { level: 3, name: 'Back Garden',  emoji: '🏡', cost: 750,  desc: '36 → 42 plots' },
-  { level: 4, name: 'Grand Estate', emoji: '🏰', cost: 1500, desc: '42 → 48 plots' },
+  { level: 1, name: 'Small Yard',   emoji: '🌿', requiredLevel: 3,  desc: '24 → 30 plots' },
+  { level: 2, name: 'Garden Path',  emoji: '🌳', requiredLevel: 5,  desc: '30 → 36 plots' },
+  { level: 3, name: 'Back Garden',  emoji: '🏡', requiredLevel: 8,  desc: '36 → 42 plots' },
+  { level: 4, name: 'Grand Estate', emoji: '🏰', requiredLevel: 12, desc: '42 → 48 plots' },
 ];
 
 // ── State ─────────────────────────────────────────────────────────
@@ -151,7 +153,7 @@ function floatCoin(tileEl, amount) {
   const gardenRect = container.getBoundingClientRect();
   const el = document.createElement('div');
   el.className = 'coin-float';
-  el.textContent = `+${amount}🌻`;
+  el.textContent = `+${amount}🪙`;
   el.style.left = (rect.left - gardenRect.left + rect.width / 2 - 16) + 'px';
   el.style.top = (rect.top - gardenRect.top) + 'px';
   container.appendChild(el);
@@ -200,6 +202,7 @@ function tick() {
 function renderHeader() {
   document.getElementById('coins-display').textContent = Math.floor(state.coins);
   document.getElementById('water-display').textContent = state.water;
+  document.getElementById('max-water-display').textContent = state.maxWater % 1 === 0 ? state.maxWater : state.maxWater.toFixed(1);
   document.getElementById('player-level').textContent = state.level;
 }
 
@@ -219,15 +222,55 @@ function renderGarden() {
     if (tile.item) {
       const item = getItem(tile.item);
 
-      const emojiEl = document.createElement('div');
-      const ready = item.growTime > 0 && isFullyGrown(tile);
-      emojiEl.className = 'tile-emoji' + (ready ? ' harvest-ready' : '');
-      if (item.customArt) {
-        emojiEl.innerHTML = itemArtHtml(item, '16px');
-      } else {
-        emojiEl.textContent = item.emoji;
+      // Pond gets special tile treatment
+      if (tile.item === 'pond') {
+        el.classList.add('pond-tile');
+        const col = i % GRID_COLS, row = Math.floor(i / GRID_COLS);
+        const adjTop    = state.tiles[i - GRID_COLS]?.item === 'pond';
+        const adjBottom = state.tiles[i + GRID_COLS]?.item === 'pond';
+        const adjLeft   = col > 0 && state.tiles[i - 1]?.item === 'pond';
+        const adjRight  = col < GRID_COLS - 1 && state.tiles[i + 1]?.item === 'pond';
+        renderPondPebbles(el, adjTop, adjBottom, adjLeft, adjRight, tile);
+        el.addEventListener('click', () => onTileClick(i));
+        grid.appendChild(el);
+        return;
       }
-      el.appendChild(emojiEl);
+
+      const ready = item.growTime > 0 && isFullyGrown(tile);
+      const large = item.isDecor || item.isGnome;
+      const isPlant = item.growTime > 0 && !item.isTree && !item.isDecor && !item.isGnome;
+
+      if (isPlant) {
+        // Scatter multiple icons at random positions/sizes
+        const seed = i * 31 + (item.id.charCodeAt(0) || 0);
+        const rnd = (n) => (Math.abs(Math.sin(seed * 127.1 + n * 311.7) * 43758.5)) % 1;
+        const count = 4 + Math.floor(rnd(0) * 3); // 4–6 icons
+        // Divide tile into a grid of zones so icons spread across the whole tile
+        const cols = 2, rows = Math.ceil(count / cols);
+        for (let k = 0; k < count; k++) {
+          const icon = document.createElement('div');
+          icon.className = 'plant-icon' + (ready ? ' harvest-ready' : '');
+          icon.textContent = item.emoji;
+          const zoneCol = k % cols;
+          const zoneRow = Math.floor(k / cols);
+          const zoneW = 100 / cols, zoneH = 100 / rows;
+          // Random position within zone, with a small margin
+          const left = zoneCol * zoneW + 12 + rnd(k + 2) * (zoneW - 24);
+          const top  = zoneRow * zoneH + 12 + rnd(k + 3) * (zoneH - 24);
+          const sz = 9 + rnd(k + 1) * 7; // 9–16px
+          icon.style.cssText = `position:absolute;font-size:${sz.toFixed(0)}px;left:${left.toFixed(1)}%;top:${top.toFixed(1)}%;transform:translate(-50%,-50%);line-height:1`;
+          el.appendChild(icon);
+        }
+      } else {
+        const emojiEl = document.createElement('div');
+        emojiEl.className = 'tile-emoji' + (ready ? ' harvest-ready' : '') + (large ? ' decor-large' : '');
+        if (item.customArt) {
+          emojiEl.innerHTML = itemArtHtml(item, large ? '34px' : '16px');
+        } else {
+          emojiEl.textContent = item.emoji;
+        }
+        el.appendChild(emojiEl);
+      }
 
       const labelEl = document.createElement('div');
       labelEl.className = 'tile-label';
@@ -253,6 +296,25 @@ function renderGarden() {
         badge.textContent = '💧';
         el.appendChild(badge);
       }
+
+      // No badge for gnomes — use hover tooltip like decor
+      if (item.isDecor || item.isGnome) {
+        const tipEl = document.getElementById('shop-tooltip');
+        const lines = [];
+        if (item.isDecor && item.reward > 0) lines.push(`🪙 +${item.reward} coins / 30s`);
+        if (item.isGnome) lines.push(`✨ +${Math.round(item.bonus*100)}% all earnings`);
+        if (lines.length) {
+          el.addEventListener('mouseenter', () => {
+            const rect = el.getBoundingClientRect();
+            tipEl.innerHTML = lines.join('<br>');
+            tipEl.style.display = 'block';
+            tipEl.style.left = (rect.left + rect.width / 2) + 'px';
+            tipEl.style.top = (rect.top - 8) + 'px';
+            tipEl.style.transform = 'translateX(-50%) translateY(-100%)';
+          });
+          el.addEventListener('mouseleave', () => { tipEl.style.display = 'none'; });
+        }
+      }
     } else {
       const plus = document.createElement('div');
       plus.className = 'tile-emoji';
@@ -266,6 +328,93 @@ function renderGarden() {
     grid.appendChild(el);
   });
 }
+
+function renderPondPebbles(el, adjTop, adjBottom, adjLeft, adjRight, tile) {
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('width', '100%');
+  svg.setAttribute('height', '100%');
+  svg.style.cssText = 'position:absolute;top:0;left:0;pointer-events:none;overflow:visible';
+
+  const N = 6; // pebbles per side
+  const sides = [
+    { active: !adjTop,    pts: (s) => Array.from({length:N}, (_,k) => [(k+1)/(N+1), 0.07]) },
+    { active: !adjBottom, pts: (s) => Array.from({length:N}, (_,k) => [(k+1)/(N+1), 0.93]) },
+    { active: !adjLeft,   pts: (s) => Array.from({length:N}, (_,k) => [0.07, (k+1)/(N+1)]) },
+    { active: !adjRight,  pts: (s) => Array.from({length:N}, (_,k) => [0.93, (k+1)/(N+1)]) },
+  ];
+
+  sides.forEach(side => {
+    if (!side.active) return;
+    side.pts().forEach(([cx, cy]) => {
+      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      circle.setAttribute('cx', `${cx * 100}%`);
+      circle.setAttribute('cy', `${cy * 100}%`);
+      circle.setAttribute('r', '7.5%');
+      circle.setAttribute('fill', '#c49a6c');
+      circle.setAttribute('stroke', '#6b4226');
+      circle.setAttribute('stroke-width', '1.5');
+      svg.appendChild(circle);
+    });
+  });
+
+  el.appendChild(svg);
+
+  // Lily scattered icons on top of pond
+  if (tile?.lilyItem) {
+    const lilyProgress = getLilyGrowthProgress(tile);
+    const lilyReady = lilyProgress >= 1;
+    const tileIdx = parseInt(el.dataset.idx) || 0;
+    const seed = tileIdx * 31 + 77;
+    const rnd = (n) => (Math.abs(Math.sin(seed * 127.1 + n * 311.7) * 43758.5)) % 1;
+    const count = 1 + Math.floor(rnd(0) * 3); // 1–3
+    // Keep icons away from pebble border (~18% inset on each side)
+    const margin = 18;
+    const innerW = 100 - margin * 2;
+    const innerH = 100 - margin * 2;
+    // Divide inner area into a grid of cells equal to count, then place one lily per cell
+    const cols = count === 1 ? 1 : 2;
+    const rows = Math.ceil(count / cols);
+    const cellW = innerW / cols;
+    const cellH = innerH / rows;
+    const minSz = 12, maxSz = 18;
+    const halfSzPct = (maxSz / 2) / /* tile px estimate */ 80 * 100; // padding to avoid edge clip
+    for (let k = 0; k < count; k++) {
+      const icon = document.createElement('div');
+      icon.className = 'plant-icon' + (lilyReady ? ' harvest-ready' : '');
+      icon.textContent = '🪷';
+      const cx = k % cols, cy = Math.floor(k / cols);
+      const pad = 8; // % padding within cell so icons don't crowd edges
+      const left = margin + cx * cellW + pad + rnd(k + 2) * (cellW - pad * 2);
+      const top  = margin + cy * cellH + pad + rnd(k + 3) * (cellH - pad * 2);
+      const sz = minSz + rnd(k + 1) * (maxSz - minSz);
+      icon.style.cssText = `position:absolute;font-size:${sz.toFixed(0)}px;left:${left.toFixed(1)}%;top:${top.toFixed(1)}%;transform:translate(-50%,-50%);line-height:1;z-index:2`;
+      el.appendChild(icon);
+    }
+    if (!lilyReady) {
+      const barBg = document.createElement('div');
+      barBg.className = 'growth-bar-bg';
+      const bar = document.createElement('div');
+      bar.className = 'growth-bar';
+      bar.style.width = (lilyProgress * 100) + '%';
+      barBg.appendChild(bar);
+      el.appendChild(barBg);
+    }
+  }
+
+  // Hover tooltip showing pond benefit
+  const pondItem = getItem('pond');
+  const tip = document.getElementById('shop-tooltip');
+  el.addEventListener('mouseenter', () => {
+    const rect = el.getBoundingClientRect();
+    tip.innerHTML = `🪙 +${pondItem.reward} coins / 30s`;
+    tip.style.display = 'block';
+    tip.style.left = (rect.left + rect.width / 2) + 'px';
+    tip.style.top = (rect.top - 8) + 'px';
+    tip.style.transform = 'translateX(-50%) translateY(-100%)';
+  });
+  el.addEventListener('mouseleave', () => { tip.style.display = 'none'; });
+}
+
 
 function getGrowthProgress(tile) {
   if (!tile.item || !tile.growthStart) return 0;
@@ -288,11 +437,12 @@ function renderShop() {
     container.className = 'land-list';
     EXPANSIONS.forEach(exp => {
       const purchased = state.expansionLevel >= exp.level;
-      const locked = state.expansionLevel < exp.level - 1;
-      const canAfford = state.coins >= exp.cost;
+      const prevPurchased = state.expansionLevel >= exp.level - 1;
+      const meetsLevel = state.level >= exp.requiredLevel;
+      const available = prevPurchased && meetsLevel;
+      const locked = !prevPurchased || !meetsLevel;
       const el = document.createElement('div');
-      el.className = 'expansion-card' +
-        (purchased ? ' exp-purchased' : locked ? ' exp-locked' : canAfford ? '' : ' exp-cant-afford');
+      el.className = 'expansion-card' + (purchased ? ' exp-purchased' : locked ? ' exp-locked' : '');
       el.innerHTML = `
         <div class="exp-icon">${exp.emoji}</div>
         <div class="exp-info">
@@ -302,12 +452,14 @@ function renderShop() {
         <div class="exp-action">
           ${purchased
             ? '<span class="exp-badge purchased">✓ Owned</span>'
-            : locked
-              ? '<span class="exp-badge locked">🔒 Locked</span>'
-              : `<span class="exp-badge buy ${canAfford ? '' : 'broke'}">🌻 ${exp.cost}</span>`}
+            : meetsLevel && !prevPurchased
+              ? '<span class="exp-badge locked">🔒 Buy previous first</span>'
+              : !meetsLevel
+                ? `<span class="exp-badge locked">Lvl ${exp.requiredLevel} required</span>`
+                : '<span class="exp-badge buy">Claim</span>'}
         </div>
       `;
-      if (!purchased && !locked) {
+      if (available && !purchased) {
         el.addEventListener('click', () => buyExpansion(exp.level));
       }
       container.appendChild(el);
@@ -322,17 +474,29 @@ function renderShop() {
     const canAfford = state.coins >= item.cost;
     el.className = 'shop-item' + (canAfford ? '' : ' item-cant-afford');
     const tooltipLines = [];
-    if (item.reward > 0 && item.growTime > 0) tooltipLines.push(`🌻 +${item.reward} coins / harvest`);
-    if (item.reward > 0 && item.growTime === 0) tooltipLines.push(`🌻 +${item.reward} coins / 30s`);
+    if (item.reward > 0 && item.growTime > 0) tooltipLines.push(`🪙 +${item.reward} coins / harvest`);
+    if (item.reward > 0 && item.growTime === 0) tooltipLines.push(`🪙 +${item.reward} coins / 30s`);
     if (item.growTime > 0) tooltipLines.push(`⏱ Grows in ${item.growTime >= 60 ? (item.growTime/60).toFixed(0)+'m' : item.growTime+'s'}`);
     if (item.xp > 0) tooltipLines.push(`⭐ +${item.xp} XP`);
     if (item.bonus) tooltipLines.push(`✨ +${Math.round(item.bonus*100)}% all earnings`);
+    if (item.pondOnly) tooltipLines.push(`🪷 Ponds only`);
     el.innerHTML = `
       <div class="item-emoji">${itemArtHtml(item, '30px')}</div>
       <div class="item-name">${item.name}</div>
-      <div class="item-cost">🌻 ${item.cost}</div>
-      ${tooltipLines.length ? `<div class="item-tooltip">${tooltipLines.join('<br>')}</div>` : ''}
+      <div class="item-cost">🪙 ${item.cost}</div>
     `;
+    if (tooltipLines.length) {
+      const tip = document.getElementById('shop-tooltip');
+      el.addEventListener('mouseenter', (e) => {
+        const rect = el.getBoundingClientRect();
+        tip.innerHTML = tooltipLines.join('<br>');
+        tip.style.display = 'block';
+        tip.style.left = (rect.left + rect.width / 2) + 'px';
+        tip.style.top = (rect.top - 8) + 'px';
+        tip.style.transform = 'translateX(-50%) translateY(-100%)';
+      });
+      el.addEventListener('mouseleave', () => { tip.style.display = 'none'; });
+    }
     if (canAfford) {
       el.addEventListener('click', () => buyItem(item.id));
     } else {
@@ -346,9 +510,18 @@ function renderInventory() {
   const container = document.getElementById('inventory-items');
   container.innerHTML = '';
   const inv = state.inventory;
-  const ids = Object.keys(inv).filter(id => inv[id] > 0);
+  const pendingIsPond = state.pendingTileIdx !== null && state.tiles[state.pendingTileIdx]?.item === 'pond';
+  const ids = Object.keys(inv).filter(id => {
+    if (inv[id] <= 0) return false;
+    const it = getItem(id);
+    if (it?.pondOnly && !pendingIsPond) return false; // hide pond-only items for soil tiles
+    if (!it?.pondOnly && pendingIsPond) return false;  // hide soil items when planting in pond
+    return true;
+  });
   if (ids.length === 0) {
-    container.innerHTML = '<p style="color:#999;font-size:13px;grid-column:1/-1;text-align:center;padding:20px">Your bag is empty.<br>Visit the shop!</p>';
+    container.innerHTML = pendingIsPond
+      ? '<p style="color:#999;font-size:13px;grid-column:1/-1;text-align:center;padding:20px">No Water Lilies in bag.<br>Buy some from the Shop!</p>'
+      : '<p style="color:#999;font-size:13px;grid-column:1/-1;text-align:center;padding:20px">Your bag is empty.<br>Visit the shop!</p>';
     return;
   }
   ids.forEach(id => {
@@ -395,14 +568,14 @@ function renderProgress() {
       : `${rate}/hr`;
   document.getElementById('progress-content').innerHTML = `
     <div style="text-align:center;padding:10px 0 16px">
-      <div style="font-size:48px">🌻</div>
+      <div style="font-size:48px">🪙</div>
       <div style="font-size:22px;font-weight:700;color:var(--green-dark)">Level ${state.level}</div>
     </div>
     <div class="xp-bar-bg"><div class="xp-bar" style="width:${pct}%"></div></div>
     <div class="xp-label">${state.xp} / ${needed} XP</div>
     <div style="margin-top:16px">
-      <div class="progress-stat"><span class="stat-label">Earning Rate</span><span class="stat-value">🌻 ${rateStr}</span></div>
-      <div class="progress-stat"><span class="stat-label">Total Coins Earned</span><span class="stat-value">🌻 ${state.totalCoinsEarned}</span></div>
+      <div class="progress-stat"><span class="stat-label">Earning Rate</span><span class="stat-value">🪙 ${rateStr}</span></div>
+      <div class="progress-stat"><span class="stat-label">Total Coins Earned</span><span class="stat-value">🪙 ${state.totalCoinsEarned}</span></div>
       <div class="progress-stat"><span class="stat-label">Plants Harvested</span><span class="stat-value">${state.plantsHarvested}</span></div>
       <div class="progress-stat"><span class="stat-label">Garden Plots</span><span class="stat-value">🏡 ${state.tiles.length}</span></div>
       <div class="progress-stat"><span class="stat-label">Water Capacity</span><span class="stat-value">💧 ${state.maxWater}</span></div>
@@ -422,8 +595,7 @@ function buyExpansion(level) {
   if (!exp) return;
   if (state.expansionLevel >= level) { toast('Already purchased!'); return; }
   if (state.expansionLevel < level - 1) { toast('Unlock the previous expansion first!'); return; }
-  if (state.coins < exp.cost) { toast(`Need 🌻 ${exp.cost} coins`); return; }
-  state.coins -= exp.cost;
+  if (state.level < exp.requiredLevel) { toast(`Reach Level ${exp.requiredLevel} to unlock!`); return; }
   state.expansionLevel = level;
   const startId = state.tiles.length;
   for (let i = 0; i < 6; i++) state.tiles.push(makeTile(startId + i));
@@ -496,9 +668,26 @@ function onTileClick(idx) {
     }
   }
 
+  // Pond tile — handle lily interactions or offer to plant lily
+  if (tile.item === 'pond') {
+    if (tile.lilyItem) {
+      const lilyGrown = getLilyGrowthProgress(tile) >= 1;
+      if (lilyGrown) { harvestLily(idx); return; }
+      // Lilies can't be watered — they grow in the pond naturally
+    } else {
+      if (state.inventory['lily'] > 0) {
+        state.pendingTileIdx = idx;
+        switchTab('inventory');
+      } else {
+        toast('Buy Water Lilies from the Shop to plant here!');
+      }
+    }
+    return;
+  }
+
   // Empty tile — open bag to pick what to place
   if (!tile.item) {
-    const hasItems = Object.keys(state.inventory).some(id => state.inventory[id] > 0);
+    const hasItems = Object.keys(state.inventory).some(id => state.inventory[id] > 0 && !getItem(id)?.pondOnly);
     if (!hasItems) { toast('Buy items from the Shop first!'); return; }
     state.pendingTileIdx = idx;
     switchTab('inventory');
@@ -510,9 +699,15 @@ function onTileClick(idx) {
 
 function placeTile(idx, itemId) {
   const tile = state.tiles[idx];
-  if (tile.item) {
-    toast('Tile is occupied! Remove it first.');
-    return;
+  const item = getItem(itemId);
+
+  // Pond tiles can host a water lily on top
+  if (tile.item === 'pond') {
+    if (itemId !== 'lily') { toast('Only Water Lilies can be planted in ponds!'); return; }
+    if (tile.lilyItem) { toast('This pond already has a lily!'); return; }
+  } else {
+    if (tile.item) { toast('Tile is occupied! Remove it first.'); return; }
+    if (item?.pondOnly) { toast('🪷 Water Lilies can only grow in ponds!'); return; }
   }
   if (!state.inventory[itemId] || state.inventory[itemId] < 1) {
     toast('No more of that item!');
@@ -523,12 +718,18 @@ function placeTile(idx, itemId) {
   state.inventory[itemId]--;
   if (state.inventory[itemId] <= 0) delete state.inventory[itemId];
 
-  const item = getItem(itemId);
-  tile.item = itemId;
-  tile.growthStart = Date.now();
-  tile.watered = false;
-  tile.wateredAt = null;
-  tile.lastRewardAt = Date.now();
+  if (tile.item === 'pond' && itemId === 'lily') {
+    tile.lilyItem = itemId;
+    tile.lilyGrowthStart = Date.now();
+    tile.lilyWatered = false;
+  } else {
+    tile.item = itemId;
+    tile.growthStart = Date.now();
+    tile.watered = false;
+    tile.wateredAt = null;
+    tile.lastRewardAt = Date.now();
+    if (itemId === 'pond') { state.maxWater += 0.5; renderHeader(); }
+  }
 
   state.selectedInvItem = null;
   addXP(item.xp);
@@ -602,7 +803,7 @@ function openTileModal(idx) {
     if (item.growTime > 0 && grown) {
       const harvestBtn = document.createElement('button');
       harvestBtn.className = 'action-btn';
-      harvestBtn.textContent = `🌻 Harvest (+${item.reward} coins)`;
+      harvestBtn.textContent = `🪙 Harvest (+${item.reward} coins)`;
       harvestBtn.addEventListener('click', () => {
         harvestTile(idx);
         closeTileModal();
@@ -626,6 +827,40 @@ function openTileModal(idx) {
 
 function closeTileModal() {
   document.getElementById('tile-modal').classList.add('hidden');
+}
+
+function getLilyGrowthProgress(tile) {
+  if (!tile.lilyItem || !tile.lilyGrowthStart) return 0;
+  const item = getItem(tile.lilyItem);
+  if (!item) return 0;
+  const mult = tile.lilyWatered ? 1.5 : 1;
+  return Math.min(1, ((Date.now() - tile.lilyGrowthStart) / 1000 * mult) / item.growTime);
+}
+
+function waterLily(idx) {
+  const tile = state.tiles[idx];
+  if (state.water <= 0) { toast('No water left!'); return; }
+  if (tile.lilyWatered) { toast('Already watered!'); return; }
+  state.water--;
+  tile.lilyWatered = true;
+  toast('💧 Lily watered! Growth +50%');
+  renderGarden(); renderHeader(); saveState();
+}
+
+function harvestLily(idx) {
+  const tile = state.tiles[idx];
+  if (getLilyGrowthProgress(tile) < 1) { toast('Not ready yet!'); return; }
+  const item = getItem(tile.lilyItem);
+  const earned = addCoins(item.reward);
+  addXP(item.xp);
+  state.plantsHarvested++;
+  const tileEl = document.querySelector(`[data-idx="${idx}"]`);
+  if (tileEl) floatCoin(tileEl, earned);
+  // Re-plant
+  tile.lilyGrowthStart = Date.now();
+  tile.lilyWatered = false;
+  toast(`🪷 Harvested! +${earned} coins`);
+  renderGarden(); saveState();
 }
 
 function waterTile(idx) {
@@ -669,7 +904,7 @@ function harvestTile(idx) {
   tile.watered = false;
   tile.wateredAt = null;
 
-  toast(`🌻 Harvested! +${earned} coins`);
+  toast(`🪙 Harvested! +${earned} coins`);
   renderGarden();
   renderHeader();
   saveState();
@@ -685,6 +920,7 @@ function removeTile(idx) {
   } else {
     toast(`${item.emoji} ${item.name} removed`);
   }
+  if (tile.item === 'pond') { state.maxWater = Math.max(10, state.maxWater - 0.5); renderHeader(); }
   tile.item = null;
   tile.growthStart = null;
   tile.watered = false;
@@ -747,6 +983,29 @@ function init() {
     });
   });
 
+  // Level display click → XP progress popup
+  document.getElementById('level-display').addEventListener('click', () => {
+    const needed = XP_PER_LEVEL(state.level);
+    const pct = Math.min(100, Math.round((state.xp / needed) * 100));
+    const nextExp = EXPANSIONS.find(e => state.level < e.requiredLevel && state.expansionLevel < e.level);
+    const modal = document.getElementById('tile-modal');
+    const info = document.getElementById('tile-modal-info');
+    const actions = document.getElementById('tile-modal-actions');
+    actions.innerHTML = '';
+    info.innerHTML = `
+      <div class="modal-emoji">⭐</div>
+      <h3>Level ${state.level}</h3>
+      <p style="margin-bottom:8px">${state.xp} / ${needed} XP</p>
+      <div style="background:#e0e0e0;border-radius:8px;height:14px;overflow:hidden;margin:0 0 12px">
+        <div style="background:var(--green-mid);height:100%;width:${pct}%;transition:width 0.3s"></div>
+      </div>
+      ${nextExp
+        ? `<p style="color:#888;font-size:13px">Reach <strong>Level ${nextExp.requiredLevel}</strong> to unlock <strong>${nextExp.emoji} ${nextExp.name}</strong></p>`
+        : '<p style="color:#888;font-size:13px">All expansions unlocked!</p>'}
+    `;
+    modal.classList.remove('hidden');
+  });
+
   // Modal close
   document.getElementById('tile-modal-close').addEventListener('click', closeTileModal);
   document.getElementById('tile-modal').addEventListener('click', (e) => {
@@ -758,6 +1017,7 @@ function init() {
     tick();
     renderGarden();
     if (state.activeTab === 'progress') renderProgress();
+    if (state.activeTab === 'shop') renderShop();
   }, 1000);
 
   // Growth animation loop (lighter)
