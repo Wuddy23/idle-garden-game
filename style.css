@@ -115,11 +115,40 @@ body {
   background: radial-gradient(ellipse at 40% 35%, #90e0ef, #0096c7) !important;
 }
 
-/* Round only the outer corners of the grid */
-#garden-grid .garden-tile:nth-child(1)             { border-radius: 12px 0 0 0; }
-#garden-grid .garden-tile:nth-child(6)             { border-radius: 0 12px 0 0; }
-#garden-grid .garden-tile:nth-last-child(1)        { border-radius: 0 0 12px 0; }
-#garden-grid .garden-tile:nth-last-child(6)        { border-radius: 0 0 0 12px; }
+.birdbath-tile {
+  background: radial-gradient(ellipse at 50% 60%, #74c69d, #40916c) !important;
+}
+
+.expansion-preview-row {
+  grid-column: 1 / -1;
+  background: rgba(0,0,0,0.07);
+  border-radius: 0 0 12px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 14px 0;
+  cursor: pointer;
+}
+
+.expansion-preview-row:active {
+  filter: brightness(0.9);
+}
+
+.preview-lock {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.preview-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(0,0,0,0.45);
+  white-space: nowrap;
+}
+
+/* Outer corners are clipped by #garden-grid overflow:hidden + border-radius:12px */
 
 .garden-tile.selected-to-place {
   border: 2px dashed var(--gold);
@@ -348,18 +377,17 @@ body {
 /* Shop Tabs */
 .shop-tabs {
   display: flex;
+  flex-wrap: wrap;
   padding: 10px 12px 0;
   gap: 6px;
   flex-shrink: 0;
-  overflow-x: auto;
-  scrollbar-width: none;
 }
 
 .shop-tab {
   background: #eee;
   border: none;
   border-radius: 20px;
-  padding: 6px 14px;
+  padding: 6px 12px;
   font-size: 13px;
   cursor: pointer;
   white-space: nowrap;
