@@ -601,19 +601,31 @@ function renderShop() {
       <div class="item-cost">🪙 ${item.cost}</div>
     `;
     if (tooltipLines.length) {
-      el.addEventListener('mouseenter', () => showTooltip(el, tooltipLines.join('<br>')));
-      el.addEventListener('mouseleave', hideTooltip);
+      el.addEventListener('mouseenter', () => {
+        // Only show hover tooltip if not already in tapped state
+        if (!el._tapped) showTooltip(el, tooltipLines.join('<br>'));
+      });
+      el.addEventListener('mouseleave', () => {
+        if (!el._tapped) hideTooltip();
+      });
     }
     el.addEventListener('click', () => {
       if (!canAfford) { toast(`Need 🪙 ${item.cost} coins!`); return; }
-      const tip = document.getElementById('shop-tooltip');
-      const tipVisible = tip.style.display === 'block' && tip._sourceEl === el;
-      if (!tipVisible) {
-        // First tap: show tooltip as preview
-        tip._sourceEl = el;
+      if (!el._tapped) {
+        // First tap: show preview tooltip
+        el._tapped = true;
         showTooltip(el, [...tooltipLines, '<strong>Tap again to buy</strong>'].join('<br>'));
+        // Reset if user taps elsewhere (defer so this click doesn't immediately trigger it)
+        const reset = () => { el._tapped = false; };
+        setTimeout(() => {
+          document.addEventListener('click', (e) => { if (!el.contains(e.target)) reset(); }, { once: true });
+        }, 0);
+        const tip = document.getElementById('shop-tooltip');
+        clearTimeout(tip._autoHide);
+        tip._autoHide = setTimeout(() => { hideTooltip(); reset(); }, 5000);
       } else {
         // Second tap: buy
+        el._tapped = false;
         hideTooltip();
         buyItem(item.id);
       }
@@ -1194,7 +1206,8 @@ function init() {
     tick();
     renderGarden();
     if (state.activeTab === 'progress') renderProgress();
-    if (state.activeTab === 'shop') renderShop();
+    const tip = document.getElementById('shop-tooltip');
+    if (state.activeTab === 'shop' && tip.style.display !== 'block') renderShop();
   }, 1000);
 
   // Growth animation loop (lighter)
