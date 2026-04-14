@@ -171,14 +171,16 @@ function showTooltip(el, html) {
   tip.style.left = (rect.left + rect.width / 2) + 'px';
   tip.style.top = (rect.top - 8) + 'px';
   tip.style.transform = 'translateX(-50%) translateY(-100%)';
+  tip._sourceEl = el;
   clearTimeout(tip._autoHide);
-  tip._autoHide = setTimeout(() => { tip.style.display = 'none'; }, 5000);
+  tip._autoHide = setTimeout(() => { tip.style.display = 'none'; tip._sourceEl = null; }, 5000);
 }
 
 function hideTooltip() {
   const tip = document.getElementById('shop-tooltip');
   clearTimeout(tip._autoHide);
   tip.style.display = 'none';
+  tip._sourceEl = null;
 }
 
 function toast(msg, duration = 2200) {
@@ -611,11 +613,20 @@ function renderShop() {
       el.addEventListener('mouseenter', () => showTooltip(el, tooltipLines.join('<br>')));
       el.addEventListener('mouseleave', hideTooltip);
     }
-    if (canAfford) {
-      el.addEventListener('click', () => buyItem(item.id));
-    } else {
-      el.title = 'Not enough coins';
-    }
+    el.addEventListener('click', () => {
+      if (!canAfford) { toast(`Need 🪙 ${item.cost} coins!`); return; }
+      const tip = document.getElementById('shop-tooltip');
+      const tipVisible = tip.style.display === 'block' && tip._sourceEl === el;
+      if (!tipVisible) {
+        // First tap: show tooltip as preview
+        tip._sourceEl = el;
+        showTooltip(el, [...tooltipLines, '<strong>Tap again to buy</strong>'].join('<br>'));
+      } else {
+        // Second tap: buy
+        hideTooltip();
+        buyItem(item.id);
+      }
+    });
     container.appendChild(el);
   });
 }
@@ -820,7 +831,7 @@ function onTileClick(idx) {
   // Empty tile — open bag to pick what to place
   if (!tile.item) {
     const hasItems = Object.keys(state.inventory).some(id => state.inventory[id] > 0 && !getItem(id)?.pondOnly);
-    if (!hasItems) { toast('Buy items from the Shop first!'); return; }
+    if (!hasItems) { switchTab('shop'); return; }
     state.pendingTileIdx = idx;
     switchTab('inventory');
     return;
