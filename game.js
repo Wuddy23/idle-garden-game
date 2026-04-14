@@ -171,14 +171,16 @@ function showTooltip(el, html) {
   tip.style.left = (rect.left + rect.width / 2) + 'px';
   tip.style.top = (rect.top - 8) + 'px';
   tip.style.transform = 'translateX(-50%) translateY(-100%)';
+  tip._sourceEl = el;
   clearTimeout(tip._autoHide);
-  tip._autoHide = setTimeout(() => { tip.style.display = 'none'; }, 5000);
+  tip._autoHide = setTimeout(() => { tip.style.display = 'none'; tip._sourceEl = null; }, 5000);
 }
 
 function hideTooltip() {
   const tip = document.getElementById('shop-tooltip');
   clearTimeout(tip._autoHide);
   tip.style.display = 'none';
+  tip._sourceEl = null;
 }
 
 function toast(msg, duration = 2200) {
@@ -316,29 +318,20 @@ function renderGarden() {
       const isPlant = item.growTime > 0 && !item.isTree && !item.isDecor && !item.isGnome;
 
       if (isPlant) {
-        // Scatter multiple icons at random positions/sizes
-        const seed = i * 31 + (item.id.charCodeAt(0) || 0);
-        const rnd = (n) => (Math.abs(Math.sin(seed * 127.1 + n * 311.7) * 43758.5)) % 1;
-        const count = 4 + Math.floor(rnd(0) * 3); // 4–6 icons
-        // Divide tile into a grid of zones so icons spread across the whole tile
-        const cols = 2, rows = Math.ceil(count / cols);
-        for (let k = 0; k < count; k++) {
+        // 4 plants of equal size at the 4 inner corners
+        const sz = 13;
+        const positions = [ [28, 28], [72, 28], [28, 72], [72, 72] ];
+        positions.forEach(([left, top]) => {
           const icon = document.createElement('div');
           icon.className = 'plant-icon' + (ready ? ' harvest-ready' : '');
-          const zoneCol = k % cols;
-          const zoneRow = Math.floor(k / cols);
-          const zoneW = 100 / cols, zoneH = 100 / rows;
-          const left = zoneCol * zoneW + 12 + rnd(k + 2) * (zoneW - 24);
-          const top  = zoneRow * zoneH + 12 + rnd(k + 3) * (zoneH - 24);
-          const sz = 9 + rnd(k + 1) * 7; // 9–16px
           if (item.customArt) {
-            icon.innerHTML = itemArtHtml(item, `${sz.toFixed(0)}px`);
+            icon.innerHTML = itemArtHtml(item, `${sz}px`);
           } else {
             icon.textContent = item.emoji;
           }
-          icon.style.cssText = `position:absolute;font-size:${sz.toFixed(0)}px;left:${left.toFixed(1)}%;top:${top.toFixed(1)}%;transform:translate(-50%,-50%);line-height:1`;
+          icon.style.cssText = `position:absolute;font-size:${sz}px;left:${left}%;top:${top}%;transform:translate(-50%,-50%);line-height:1`;
           el.appendChild(icon);
-        }
+        });
       } else {
         const emojiEl = document.createElement('div');
         emojiEl.className = 'tile-emoji' + (ready ? ' harvest-ready' : '') + (large ? ' decor-large' : '');
@@ -611,11 +604,20 @@ function renderShop() {
       el.addEventListener('mouseenter', () => showTooltip(el, tooltipLines.join('<br>')));
       el.addEventListener('mouseleave', hideTooltip);
     }
-    if (canAfford) {
-      el.addEventListener('click', () => buyItem(item.id));
-    } else {
-      el.title = 'Not enough coins';
-    }
+    el.addEventListener('click', () => {
+      if (!canAfford) { toast(`Need 🪙 ${item.cost} coins!`); return; }
+      const tip = document.getElementById('shop-tooltip');
+      const tipVisible = tip.style.display === 'block' && tip._sourceEl === el;
+      if (!tipVisible) {
+        // First tap: show tooltip as preview
+        tip._sourceEl = el;
+        showTooltip(el, [...tooltipLines, '<strong>Tap again to buy</strong>'].join('<br>'));
+      } else {
+        // Second tap: buy
+        hideTooltip();
+        buyItem(item.id);
+      }
+    });
     container.appendChild(el);
   });
 }
@@ -820,7 +822,7 @@ function onTileClick(idx) {
   // Empty tile — open bag to pick what to place
   if (!tile.item) {
     const hasItems = Object.keys(state.inventory).some(id => state.inventory[id] > 0 && !getItem(id)?.pondOnly);
-    if (!hasItems) { toast('Buy items from the Shop first!'); return; }
+    if (!hasItems) { switchTab('shop'); return; }
     state.pendingTileIdx = idx;
     switchTab('inventory');
     return;
