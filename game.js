@@ -40,6 +40,24 @@ const GRID_COLS = 6;
 const XP_PER_LEVEL = (lvl) => 100 * lvl;
 const WATER_REGEN_SEC = 60; // 1 water per minute
 
+const TOOLS = [
+  {
+    id: 'rake',
+    name: 'Rake',
+    emoji: '🪣',
+    cost: 200,
+    desc: 'Tap any ready plant to harvest all ready plants at once',
+    customArt: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60"><line x1="30" y1="10" x2="30" y2="52" stroke="#8b5e3c" stroke-width="5" stroke-linecap="round"/><!-- rake head --><rect x="10" y="10" width="40" height="7" rx="3" fill="#a0714f" stroke="#6b4226" stroke-width="1.5"/><!-- tines --><line x1="14" y1="17" x2="12" y2="28" stroke="#6b4226" stroke-width="3" stroke-linecap="round"/><line x1="21" y1="17" x2="20" y2="28" stroke="#6b4226" stroke-width="3" stroke-linecap="round"/><line x1="30" y1="17" x2="30" y2="28" stroke="#6b4226" stroke-width="3" stroke-linecap="round"/><line x1="39" y1="17" x2="40" y2="28" stroke="#6b4226" stroke-width="3" stroke-linecap="round"/><line x1="46" y1="17" x2="48" y2="28" stroke="#6b4226" stroke-width="3" stroke-linecap="round"/></svg>`,
+  },
+  {
+    id: 'gardener',
+    name: 'Gardener',
+    emoji: '🧑‍🌾',
+    cost: 500,
+    desc: 'A helpful gardener who harvests fully grown plants every 5 minutes',
+  },
+];
+
 const EXPANSIONS = [
   { level: 1, name: 'Small Yard',   emoji: '🌿', requiredLevel: 3,  cost: 300,  desc: '24 → 30 plots' },
   { level: 2, name: 'Garden Path',  emoji: '🌳', requiredLevel: 5,  cost: 800,  desc: '30 → 36 plots' },
@@ -69,6 +87,8 @@ let state = {
   shopCategory: 'plants',
   selectedInvItem: null,
   pendingTileIdx: null,
+  tools: {},
+  lastGardenerAt: 0,
 };
 
 // ── Persistence ───────────────────────────────────────────────────
@@ -93,6 +113,8 @@ function loadState() {
     state.waterTimer = saved.waterTimer ?? 0;
     state.inventory = saved.inventory ?? {};
     state.expansionLevel = saved.expansionLevel ?? 0;
+    state.tools = saved.tools ?? {};
+    state.lastGardenerAt = saved.lastGardenerAt ?? 0;
     if (saved.tiles?.length >= 24) {
       state.tiles = saved.tiles;
     }
@@ -139,6 +161,24 @@ function addXP(amount) {
     state.maxWater = Math.min(20, 10 + Math.floor(state.level / 2));
     toast(`🎉 Level ${state.level}! Max water increased!`);
   }
+}
+
+function showTooltip(el, html) {
+  const tip = document.getElementById('shop-tooltip');
+  const rect = el.getBoundingClientRect();
+  tip.innerHTML = html;
+  tip.style.display = 'block';
+  tip.style.left = (rect.left + rect.width / 2) + 'px';
+  tip.style.top = (rect.top - 8) + 'px';
+  tip.style.transform = 'translateX(-50%) translateY(-100%)';
+  clearTimeout(tip._autoHide);
+  tip._autoHide = setTimeout(() => { tip.style.display = 'none'; }, 5000);
+}
+
+function hideTooltip() {
+  const tip = document.getElementById('shop-tooltip');
+  clearTimeout(tip._autoHide);
+  tip.style.display = 'none';
 }
 
 function toast(msg, duration = 2200) {
@@ -194,6 +234,37 @@ function tick() {
     }
   });
   if (passiveCoins > 0) addCoins(passiveCoins);
+
+  // Gardener: auto-harvest fully grown plants every 5 minutes
+  const RAKE_INTERVAL = 5 * 60 * 1000;
+  if (state.tools.gardener && now - (state.lastGardenerAt || 0) >= RAKE_INTERVAL) {
+    state.lastGardenerAt = now;
+    state.tiles.forEach(tile => {
+      if (!tile.item) return;
+      const item = getItem(tile.item);
+      if (!item || item.growTime === 0 || item.isDecor || item.isGnome) return;
+      if (isFullyGrown(tile)) {
+        addCoins(item.reward);
+        addXP(item.xp);
+        state.plantsHarvested++;
+        tile.growthStart = now;
+        tile.watered = false;
+        tile.wateredAt = null;
+      }
+    });
+    // Auto-harvest lilies
+    state.tiles.forEach(tile => {
+      if (tile.item !== 'pond' || !tile.lilyItem) return;
+      if (getLilyGrowthProgress(tile) >= 1) {
+        const lilyItem = getItem(tile.lilyItem);
+        addCoins(lilyItem.reward);
+        addXP(lilyItem.xp);
+        state.plantsHarvested++;
+        tile.lilyGrowthStart = now;
+        tile.lilyWatered = false;
+      }
+    });
+  }
 
   saveState();
   renderHeader();
@@ -306,20 +377,12 @@ function renderGarden() {
 
       // No badge for gnomes — use hover tooltip like decor
       if (item.isDecor || item.isGnome) {
-        const tipEl = document.getElementById('shop-tooltip');
         const lines = [];
         if (item.isDecor && item.reward > 0) lines.push(`🪙 +${item.reward} coin${item.reward !== 1 ? 's' : ''} / ${item.rewardInterval ?? 30}s`);
         if (item.isGnome) lines.push(`✨ +${Math.round(item.bonus*100)}% all earnings`);
         if (lines.length) {
-          el.addEventListener('mouseenter', () => {
-            const rect = el.getBoundingClientRect();
-            tipEl.innerHTML = lines.join('<br>');
-            tipEl.style.display = 'block';
-            tipEl.style.left = (rect.left + rect.width / 2) + 'px';
-            tipEl.style.top = (rect.top - 8) + 'px';
-            tipEl.style.transform = 'translateX(-50%) translateY(-100%)';
-          });
-          el.addEventListener('mouseleave', () => { tipEl.style.display = 'none'; });
+          el.addEventListener('mouseenter', () => showTooltip(el, lines.join('<br>')));
+          el.addEventListener('mouseleave', hideTooltip);
         }
       }
     } else {
@@ -438,16 +501,8 @@ function renderPondPebbles(el, adjTop, adjBottom, adjLeft, adjRight, tile) {
 
   // Hover tooltip showing pond benefit
   const pondItem = getItem('pond');
-  const tip = document.getElementById('shop-tooltip');
-  el.addEventListener('mouseenter', () => {
-    const rect = el.getBoundingClientRect();
-    tip.innerHTML = `🪙 +${pondItem.reward} coin / ${pondItem.rewardInterval ?? 30}s`;
-    tip.style.display = 'block';
-    tip.style.left = (rect.left + rect.width / 2) + 'px';
-    tip.style.top = (rect.top - 8) + 'px';
-    tip.style.transform = 'translateX(-50%) translateY(-100%)';
-  });
-  el.addEventListener('mouseleave', () => { tip.style.display = 'none'; });
+  el.addEventListener('mouseenter', () => showTooltip(el, `🪙 +${pondItem.reward} coin / ${pondItem.rewardInterval ?? 30}s`));
+  el.addEventListener('mouseleave', hideTooltip);
 }
 
 
@@ -467,6 +522,33 @@ function isFullyGrown(tile) {
 function renderShop() {
   const container = document.getElementById('shop-items');
   container.innerHTML = '';
+
+  if (state.shopCategory === 'tools') {
+    container.className = 'land-list';
+    TOOLS.forEach(tool => {
+      const owned = !!state.tools[tool.id];
+      const canAfford = state.coins >= tool.cost;
+      const el = document.createElement('div');
+      el.className = 'expansion-card' + (owned ? ' exp-purchased' : '');
+      el.innerHTML = `
+        <div class="exp-icon">${itemArtHtml(tool, '36px')}</div>
+        <div class="exp-info">
+          <div class="exp-name">${tool.name}</div>
+          <div class="exp-desc">${tool.desc}</div>
+        </div>
+        <div class="exp-action">
+          ${owned
+            ? '<span class="exp-badge purchased">✓ Owned</span>'
+            : `<span class="exp-badge buy ${canAfford ? '' : 'broke'}">🪙 ${tool.cost}</span>`}
+        </div>
+      `;
+      if (!owned) {
+        el.addEventListener('click', () => buyTool(tool.id));
+      }
+      container.appendChild(el);
+    });
+    return;
+  }
 
   if (state.shopCategory === 'land') {
     container.className = 'land-list';
@@ -526,16 +608,8 @@ function renderShop() {
       <div class="item-cost">🪙 ${item.cost}</div>
     `;
     if (tooltipLines.length) {
-      const tip = document.getElementById('shop-tooltip');
-      el.addEventListener('mouseenter', (e) => {
-        const rect = el.getBoundingClientRect();
-        tip.innerHTML = tooltipLines.join('<br>');
-        tip.style.display = 'block';
-        tip.style.left = (rect.left + rect.width / 2) + 'px';
-        tip.style.top = (rect.top - 8) + 'px';
-        tip.style.transform = 'translateX(-50%) translateY(-100%)';
-      });
-      el.addEventListener('mouseleave', () => { tip.style.display = 'none'; });
+      el.addEventListener('mouseenter', () => showTooltip(el, tooltipLines.join('<br>')));
+      el.addEventListener('mouseleave', hideTooltip);
     }
     if (canAfford) {
       el.addEventListener('click', () => buyItem(item.id));
@@ -648,6 +722,19 @@ function buyExpansion(level) {
   saveState();
 }
 
+function buyTool(id) {
+  const tool = TOOLS.find(t => t.id === id);
+  if (!tool) return;
+  if (state.tools[id]) { toast('Already owned!'); return; }
+  if (state.coins < tool.cost) { toast(`Need 🪙 ${tool.cost} coins!`); return; }
+  state.coins -= tool.cost;
+  state.tools[id] = true;
+  toast(`${tool.emoji} ${tool.name} purchased!`);
+  renderShop();
+  renderHeader();
+  saveState();
+}
+
 function buyItem(id) {
   const item = getItem(id);
   if (!item || state.coins < item.cost) return;
@@ -695,7 +782,11 @@ function onTileClick(idx) {
   if (tile.item && isFullyGrown(tile)) {
     const item = getItem(tile.item);
     if (item.growTime > 0) {
-      harvestTile(idx);
+      if (state.tools.rake) {
+        harvestAllReady();
+      } else {
+        harvestTile(idx);
+      }
       return;
     }
   }
@@ -923,6 +1014,49 @@ function waterTile(idx) {
     // handled in getGrowthProgress via watered flag
   }
   toast('💧 Watered! Growth speed +50%');
+  renderGarden();
+  renderHeader();
+  saveState();
+}
+
+function harvestAllReady() {
+  const now = Date.now();
+  let totalEarned = 0;
+  let count = 0;
+  state.tiles.forEach((tile, idx) => {
+    if (!tile.item) return;
+    const item = getItem(tile.item);
+    if (!item || item.growTime === 0 || item.isDecor || item.isGnome) return;
+    if (isFullyGrown(tile)) {
+      const earned = addCoins(item.reward);
+      addXP(item.xp);
+      state.plantsHarvested++;
+      const tileEl = document.querySelector(`[data-idx="${idx}"]`);
+      if (tileEl) floatCoin(tileEl, earned);
+      tile.growthStart = now;
+      tile.watered = false;
+      tile.wateredAt = null;
+      totalEarned += earned;
+      count++;
+    }
+  });
+  // Also harvest lilies
+  state.tiles.forEach((tile, idx) => {
+    if (tile.item !== 'pond' || !tile.lilyItem) return;
+    if (getLilyGrowthProgress(tile) >= 1) {
+      const lilyItem = getItem(tile.lilyItem);
+      const earned = addCoins(lilyItem.reward);
+      addXP(lilyItem.xp);
+      state.plantsHarvested++;
+      const tileEl = document.querySelector(`[data-idx="${idx}"]`);
+      if (tileEl) floatCoin(tileEl, earned);
+      tile.lilyGrowthStart = now;
+      tile.lilyWatered = false;
+      totalEarned += earned;
+      count++;
+    }
+  });
+  if (count > 0) toast(`🪣 Raked ${count} plant${count > 1 ? 's' : ''}! +${totalEarned} 🪙`);
   renderGarden();
   renderHeader();
   saveState();
