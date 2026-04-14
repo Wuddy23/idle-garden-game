@@ -318,29 +318,20 @@ function renderGarden() {
       const isPlant = item.growTime > 0 && !item.isTree && !item.isDecor && !item.isGnome;
 
       if (isPlant) {
-        // Scatter multiple icons at random positions/sizes
-        const seed = i * 31 + (item.id.charCodeAt(0) || 0);
-        const rnd = (n) => (Math.abs(Math.sin(seed * 127.1 + n * 311.7) * 43758.5)) % 1;
-        const count = 4 + Math.floor(rnd(0) * 3); // 4–6 icons
-        // Divide tile into a grid of zones so icons spread across the whole tile
-        const cols = 2, rows = Math.ceil(count / cols);
-        for (let k = 0; k < count; k++) {
+        // 4 plants of equal size at the 4 inner corners
+        const sz = 13;
+        const positions = [ [28, 28], [72, 28], [28, 72], [72, 72] ];
+        positions.forEach(([left, top]) => {
           const icon = document.createElement('div');
           icon.className = 'plant-icon' + (ready ? ' harvest-ready' : '');
-          const zoneCol = k % cols;
-          const zoneRow = Math.floor(k / cols);
-          const zoneW = 100 / cols, zoneH = 100 / rows;
-          const left = zoneCol * zoneW + 12 + rnd(k + 2) * (zoneW - 24);
-          const top  = zoneRow * zoneH + 12 + rnd(k + 3) * (zoneH - 24);
-          const sz = 9 + rnd(k + 1) * 7; // 9–16px
           if (item.customArt) {
-            icon.innerHTML = itemArtHtml(item, `${sz.toFixed(0)}px`);
+            icon.innerHTML = itemArtHtml(item, `${sz}px`);
           } else {
             icon.textContent = item.emoji;
           }
-          icon.style.cssText = `position:absolute;font-size:${sz.toFixed(0)}px;left:${left.toFixed(1)}%;top:${top.toFixed(1)}%;transform:translate(-50%,-50%);line-height:1`;
+          icon.style.cssText = `position:absolute;font-size:${sz}px;left:${left}%;top:${top}%;transform:translate(-50%,-50%);line-height:1`;
           el.appendChild(icon);
-        }
+        });
       } else {
         const emojiEl = document.createElement('div');
         emojiEl.className = 'tile-emoji' + (ready ? ' harvest-ready' : '') + (large ? ' decor-large' : '');
